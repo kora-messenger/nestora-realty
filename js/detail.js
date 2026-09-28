@@ -54,7 +54,7 @@ function renderDetail() {
     [t("d_baths"), String(p.baths)],
     [t("d_area"), p.sqm.toLocaleString("en-US") + " m²"],
     [t("d_year"), String(p.year)],
-    [t("d_energy"), p.energyClass],
+    p.energyClass ? [t("d_energy"), p.energyClass] : null,
     p.floor ? [t("d_floor"), p.floor] : null,
     [t("d_state"), L(p.state)],
     p.country && p.country.en !== "Germany" ? [t("d_country"), L(p.country)] : null,
