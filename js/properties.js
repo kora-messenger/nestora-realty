@@ -2396,6 +2396,7 @@ const PROPERTIES = [
     title: {"en": "Live Like in Your Own House – Spacious House-in-House Between Düsseldorf and the Ruhr Area", "de": "Wohnen wie im eigenen Haus – großzügiges Haus-in-Haus-Konzept zwischen Düsseldorf und Ruhrgebiet"},
     status: "sale", type: "duplex",
     price: 451000,
+    pm2: 1500,
     priceNote: "",
     location: {"en": "Verberg, Krefeld", "de": "Verberg, Krefeld"},
     country: {"en": "Germany", "de": "Deutschland"}, state: {"en": "North Rhine-Westphalia", "de": "Nordrhein-Westfalen"}, city: {"en": "Krefeld", "de": "Krefeld"}, district: {"en": "Verberg", "de": "Verberg"},

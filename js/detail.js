@@ -33,7 +33,7 @@ function renderDetail() {
   const cur = p.currency || "EUR";
   if (p.status === "rent") {
     priceEl.innerHTML = formatPrice(p.price, cur) + `<span class="d-note">${t("d_rent")}</span>`;
-    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) });
+    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.pm2 || (p.price / p.sqm), cur) });
     const total = p.price + (p.utilities || 0) + (p.heating || 0);
     const multi = (p.utilities || 0) + (p.heating || 0) > 0;
     costsEl.innerHTML = `
@@ -43,7 +43,7 @@ function renderDetail() {
       ${p.deposit ? `<div class="cost-row"><span>${t("d_deposit")}</span><span>${formatPrice(p.deposit, cur)}</span></div>` : ""}`;
   } else {
     priceEl.innerHTML = formatPrice(p.price, cur);
-    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) });
+    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.pm2 || (p.price / p.sqm), cur) });
     costsEl.innerHTML = "";
   }
 

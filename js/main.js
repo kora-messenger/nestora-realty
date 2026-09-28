@@ -122,7 +122,7 @@ function cardHtml(p) {
   const cur = p.currency || "EUR";
   const price = formatPrice(p.price, cur) + (p.priceNote ? `<span class="card-price-note">${t(p.priceNote)}</span>` : "");
   const badge = p.badge ? `<span class="card-badge badge-gold">${L(p.badge)}</span>` : "";
-  const pm2 = `<span class="card-pm2">${t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) })}</span>`;
+  const pm2 = `<span class="card-pm2">${t("per_m2", { p: fmtPm2(p.pm2 || (p.price / p.sqm), cur) })}</span>`;
   const ec = p.energyClass ? `<span class="ec ec-${p.energyClass.replace("+", "p")}">${p.energyClass}</span>` : "";
   const hearted = FAVS.has(p.id) ? " active" : "";
   return `
