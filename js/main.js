@@ -343,6 +343,8 @@ function initFilters() {
   if (advBtn) advBtn.addEventListener("click", () => {
     advPanel.hidden = !advPanel.hidden;
     advBtn.textContent = advPanel.hidden ? t("adv_filters") : t("adv_hide");
+    const tg = document.querySelector(".telegram-float");
+    if (tg) tg.classList.toggle("tg-hidden", !advPanel.hidden);
   });
 
   /* ---- energy chips ---- */
