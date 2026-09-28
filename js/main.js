@@ -503,12 +503,17 @@ function initFilters() {
     /* location-aware empty state */
     const grid = document.getElementById("listings-grid");
     if (!items.length && loc && grid) {
+      const anyInLoc = PROPERTIES.some(p =>
+        (loc.kind === "state" && p.state.en === loc.name) ||
+        (loc.kind === "city" && (p.city.en === loc.name || p.city.de === loc.nameDe)) ||
+        (loc.kind === "district" && p.district.en === loc.name));
+      const msgKey = anyInLoc ? "loc_filtered" : "loc_none_here";
       grid.innerHTML = `<div class="empty-state loc-empty">
-        <h3>${t("loc_none_here_h")} — ${locq.value}</h3>
-        <p>${t("loc_none_here_p", { loc: locq.value })}</p>
+        <h3>${t(msgKey + "_h", { loc: locq.value })}</h3>
+        <p>${t(msgKey + "_p", { loc: locq.value })}</p>
         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-          <a class="btn btn-gold" target="_blank" rel="noopener" href="${tgLink(t("loc_none_here_p", { loc: locq.value }))}">${t("loc_notify")} (Telegram)</a>
-          <button class="btn btn-outline" onclick="clearFilters()">${t("empty_clear")}</button>
+          ${anyInLoc ? `<button class="btn btn-gold" onclick="clearFilters()">${t("empty_clear")}</button>` : `<a class="btn btn-gold" target="_blank" rel="noopener" href="${tgLink(t("loc_none_here_p", { loc: locq.value }))}">${t("loc_notify")} (Telegram)</a>`}
+          <a class="btn btn-outline" target="_blank" rel="noopener" href="${tgLink(t(msgKey + "_p", { loc: locq.value }))}">${t("loc_notify")} (Telegram)</a>
         </div>
       </div>`;
       removeLoadMore(grid);
