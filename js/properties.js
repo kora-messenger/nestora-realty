@@ -1514,8 +1514,8 @@ const PROPERTIES = [
     featured: true,
     description: {"en": "A well-presented 2-bedroom apartment of 92 m² in Upper West Side, New York. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 92 m² in Upper West Side, New York. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/8/p1.jpg",
-    gallery: ["assets/img/props/8/p1.jpg", "assets/img/props/8/p2.jpg", "assets/img/props/8/p3.jpg", "assets/img/props/8/p4.jpg", "assets/img/props/8/p5.jpg"]
+    image: "assets/img/props/76/p1.jpg",
+    gallery: ["assets/img/props/76/p1.jpg", "assets/img/props/76/p2.jpg", "assets/img/props/76/p3.jpg", "assets/img/props/76/p4.jpg", "assets/img/props/76/p5.jpg"]
   },
   {
     id: 77,
@@ -1537,8 +1537,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A penthouse of 165 m² above the rooftops of Brickell, Miami. Floor-to-ceiling windows, a private terrace and private roof terrace define this home.", "de": "Ein Penthouse mit 165 m² über den Dächern von Brickell, Miami. Bodenhohe Fenster, eine private Terrasse und Private Dachterrasse prägen dieses Zuhause."},
     features: {"en": ["Private roof terrace", "Panoramic views", "Concierge service", "Secure parking", "Gym in building"], "de": ["Private Dachterrasse", "Panoramablick", "Concierge-Service", "Sicherer Stellplatz", "Fitnessstudio im Haus"]},
-    image: "assets/img/props/15/p1.jpg",
-    gallery: ["assets/img/props/15/p1.jpg", "assets/img/props/15/p2.jpg", "assets/img/props/15/p3.jpg", "assets/img/props/15/p4.jpg", "assets/img/props/15/p5.jpg"]
+    image: "assets/img/props/77/p1.jpg",
+    gallery: ["assets/img/props/77/p1.jpg", "assets/img/props/77/p2.jpg", "assets/img/props/77/p3.jpg", "assets/img/props/77/p4.jpg", "assets/img/props/77/p5.jpg"]
   },
   {
     id: 78,
@@ -1560,8 +1560,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A detached family home with 310 m² of living space in West Hollywood, Los Angeles, set on a quiet residential street. private garden and generous spaces inside and out give room for the whole family.", "de": "Ein freistehendes Familienhaus mit 310 m² Wohnfläche in West Hollywood, Los Angeles, in ruhiger Wohnlage. Eigener Garten und großzügige Räume innen wie außen bieten Platz für die ganze Familie."},
     features: {"en": ["Private garden", "Garage & driveway", "Open-plan living", "Home office", "Terrace"], "de": ["Eigener Garten", "Garage & Zufahrt", "Offener Wohnbereich", "Arbeitszimmer", "Terrasse"]},
-    image: "assets/img/props/22/p1.jpg",
-    gallery: ["assets/img/props/22/p1.jpg", "assets/img/props/22/p2.jpg", "assets/img/props/22/p3.jpg", "assets/img/props/22/p4.jpg", "assets/img/props/22/p5.jpg"]
+    image: "assets/img/props/78/p1.jpg",
+    gallery: ["assets/img/props/78/p1.jpg", "assets/img/props/78/p2.jpg", "assets/img/props/78/p3.jpg", "assets/img/props/78/p4.jpg", "assets/img/props/78/p5.jpg"]
   },
   {
     id: 79,
@@ -1583,8 +1583,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 88 m² in Kensington, London. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 88 m² in Kensington, London. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/29/p1.jpg",
-    gallery: ["assets/img/props/29/p1.jpg", "assets/img/props/29/p2.jpg", "assets/img/props/29/p3.jpg", "assets/img/props/29/p4.jpg", "assets/img/props/29/p5.jpg"]
+    image: "assets/img/props/79/p1.jpg",
+    gallery: ["assets/img/props/79/p1.jpg", "assets/img/props/79/p2.jpg", "assets/img/props/79/p3.jpg", "assets/img/props/79/p4.jpg", "assets/img/props/79/p5.jpg"]
   },
   {
     id: 80,
@@ -1606,8 +1606,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 76 m² in Canary Wharf, London. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 76 m² in Canary Wharf, London. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/36/p1.jpg",
-    gallery: ["assets/img/props/36/p1.jpg", "assets/img/props/36/p2.jpg", "assets/img/props/36/p3.jpg", "assets/img/props/36/p4.jpg", "assets/img/props/36/p5.jpg"]
+    image: "assets/img/props/80/p1.jpg",
+    gallery: ["assets/img/props/80/p1.jpg", "assets/img/props/80/p2.jpg", "assets/img/props/80/p3.jpg", "assets/img/props/80/p4.jpg", "assets/img/props/80/p5.jpg"]
   },
   {
     id: 81,
@@ -1629,8 +1629,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 74 m² in Salford Quays, Manchester. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 74 m² in Salford Quays, Manchester. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/43/p1.jpg",
-    gallery: ["assets/img/props/43/p1.jpg", "assets/img/props/43/p2.jpg", "assets/img/props/43/p3.jpg", "assets/img/props/43/p4.jpg", "assets/img/props/43/p5.jpg"]
+    image: "assets/img/props/81/p1.jpg",
+    gallery: ["assets/img/props/81/p1.jpg", "assets/img/props/81/p2.jpg", "assets/img/props/81/p3.jpg", "assets/img/props/81/p4.jpg", "assets/img/props/81/p5.jpg"]
   },
   {
     id: 82,
@@ -1652,8 +1652,8 @@ const PROPERTIES = [
     featured: true,
     description: {"en": "A well-presented 2-bedroom apartment of 68 m² in Le Marais, Paris. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 68 m² in Le Marais, Paris. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/50/p1.jpg",
-    gallery: ["assets/img/props/50/p1.jpg", "assets/img/props/50/p2.jpg", "assets/img/props/50/p3.jpg", "assets/img/props/50/p4.jpg", "assets/img/props/50/p5.jpg"]
+    image: "assets/img/props/82/p1.jpg",
+    gallery: ["assets/img/props/82/p1.jpg", "assets/img/props/82/p2.jpg", "assets/img/props/82/p3.jpg", "assets/img/props/82/p4.jpg", "assets/img/props/82/p5.jpg"]
   },
   {
     id: 83,
@@ -1675,8 +1675,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 78 m² in Presqu'île, Lyon. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 78 m² in Presqu'île, Lyon. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/57/p1.jpg",
-    gallery: ["assets/img/props/57/p1.jpg", "assets/img/props/57/p2.jpg", "assets/img/props/57/p3.jpg", "assets/img/props/57/p4.jpg", "assets/img/props/57/p5.jpg"]
+    image: "assets/img/props/83/p1.jpg",
+    gallery: ["assets/img/props/83/p1.jpg", "assets/img/props/83/p2.jpg", "assets/img/props/83/p3.jpg", "assets/img/props/83/p4.jpg", "assets/img/props/83/p5.jpg"]
   },
   {
     id: 84,
@@ -1698,8 +1698,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 3-bedroom apartment of 105 m² in Eixample, Barcelona. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 3-Zimmer-Wohnung mit 105 m² in Eixample, Barcelona. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/64/p1.jpg",
-    gallery: ["assets/img/props/64/p1.jpg", "assets/img/props/64/p2.jpg", "assets/img/props/64/p3.jpg", "assets/img/props/64/p4.jpg", "assets/img/props/64/p5.jpg"]
+    image: "assets/img/props/84/p1.jpg",
+    gallery: ["assets/img/props/84/p1.jpg", "assets/img/props/84/p2.jpg", "assets/img/props/84/p3.jpg", "assets/img/props/84/p4.jpg", "assets/img/props/84/p5.jpg"]
   },
   {
     id: 85,
@@ -1721,8 +1721,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 86 m² in Salamanca, Madrid. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 86 m² in Salamanca, Madrid. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/71/p1.jpg",
-    gallery: ["assets/img/props/71/p1.jpg", "assets/img/props/71/p2.jpg", "assets/img/props/71/p3.jpg", "assets/img/props/71/p4.jpg", "assets/img/props/71/p5.jpg"]
+    image: "assets/img/props/85/p1.jpg",
+    gallery: ["assets/img/props/85/p1.jpg", "assets/img/props/85/p2.jpg", "assets/img/props/85/p3.jpg", "assets/img/props/85/p4.jpg", "assets/img/props/85/p5.jpg"]
   },
   {
     id: 86,
@@ -1744,8 +1744,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A detached family home with 340 m² of living space in Golden Mile, Marbella, set on a quiet residential street. private garden and generous spaces inside and out give room for the whole family.", "de": "Ein freistehendes Familienhaus mit 340 m² Wohnfläche in Golden Mile, Marbella, in ruhiger Wohnlage. Eigener Garten und großzügige Räume innen wie außen bieten Platz für die ganze Familie."},
     features: {"en": ["Private garden", "Garage & driveway", "Open-plan living", "Home office", "Terrace"], "de": ["Eigener Garten", "Garage & Zufahrt", "Offener Wohnbereich", "Arbeitszimmer", "Terrasse"]},
-    image: "assets/img/props/3/p1.jpg",
-    gallery: ["assets/img/props/3/p1.jpg", "assets/img/props/3/p2.jpg", "assets/img/props/3/p3.jpg", "assets/img/props/3/p4.jpg", "assets/img/props/3/p5.jpg"]
+    image: "assets/img/props/86/p1.jpg",
+    gallery: ["assets/img/props/86/p1.jpg", "assets/img/props/86/p2.jpg", "assets/img/props/86/p3.jpg", "assets/img/props/86/p4.jpg", "assets/img/props/86/p5.jpg"]
   },
   {
     id: 87,
@@ -1767,8 +1767,8 @@ const PROPERTIES = [
     featured: true,
     description: {"en": "A well-presented 2-bedroom apartment of 96 m² in Brera, Milan. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 96 m² in Brera, Mailand. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/10/p1.jpg",
-    gallery: ["assets/img/props/10/p1.jpg", "assets/img/props/10/p2.jpg", "assets/img/props/10/p3.jpg", "assets/img/props/10/p4.jpg", "assets/img/props/10/p5.jpg"]
+    image: "assets/img/props/87/p1.jpg",
+    gallery: ["assets/img/props/87/p1.jpg", "assets/img/props/87/p2.jpg", "assets/img/props/87/p3.jpg", "assets/img/props/87/p4.jpg", "assets/img/props/87/p5.jpg"]
   },
   {
     id: 88,
@@ -1790,8 +1790,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 82 m² in Trastevere, Rome. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 82 m² in Trastevere, Rom. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/17/p1.jpg",
-    gallery: ["assets/img/props/17/p1.jpg", "assets/img/props/17/p2.jpg", "assets/img/props/17/p3.jpg", "assets/img/props/17/p4.jpg", "assets/img/props/17/p5.jpg"]
+    image: "assets/img/props/88/p1.jpg",
+    gallery: ["assets/img/props/88/p1.jpg", "assets/img/props/88/p2.jpg", "assets/img/props/88/p3.jpg", "assets/img/props/88/p4.jpg", "assets/img/props/88/p5.jpg"]
   },
   {
     id: 89,
@@ -1813,8 +1813,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 78 m² in De Pijp, Amsterdam. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 78 m² in De Pijp, Amsterdam. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/24/p1.jpg",
-    gallery: ["assets/img/props/24/p1.jpg", "assets/img/props/24/p2.jpg", "assets/img/props/24/p3.jpg", "assets/img/props/24/p4.jpg", "assets/img/props/24/p5.jpg"]
+    image: "assets/img/props/89/p1.jpg",
+    gallery: ["assets/img/props/89/p1.jpg", "assets/img/props/89/p2.jpg", "assets/img/props/89/p3.jpg", "assets/img/props/89/p4.jpg", "assets/img/props/89/p5.jpg"]
   },
   {
     id: 90,
@@ -1836,8 +1836,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 3-bedroom apartment of 108 m² in Seefeld, Zurich. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 3-Zimmer-Wohnung mit 108 m² in Seefeld, Zürich. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/31/p1.jpg",
-    gallery: ["assets/img/props/31/p1.jpg", "assets/img/props/31/p2.jpg", "assets/img/props/31/p3.jpg", "assets/img/props/31/p4.jpg", "assets/img/props/31/p5.jpg"]
+    image: "assets/img/props/90/p1.jpg",
+    gallery: ["assets/img/props/90/p1.jpg", "assets/img/props/90/p2.jpg", "assets/img/props/90/p3.jpg", "assets/img/props/90/p4.jpg", "assets/img/props/90/p5.jpg"]
   },
   {
     id: 91,
@@ -1859,8 +1859,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 74 m² in Leopoldstadt, Vienna. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 74 m² in Leopoldstadt, Wien. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/38/p1.jpg",
-    gallery: ["assets/img/props/38/p1.jpg", "assets/img/props/38/p2.jpg", "assets/img/props/38/p3.jpg", "assets/img/props/38/p4.jpg", "assets/img/props/38/p5.jpg"]
+    image: "assets/img/props/91/p1.jpg",
+    gallery: ["assets/img/props/91/p1.jpg", "assets/img/props/91/p2.jpg", "assets/img/props/91/p3.jpg", "assets/img/props/91/p4.jpg", "assets/img/props/91/p5.jpg"]
   },
   {
     id: 92,
@@ -1882,8 +1882,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 90 m² in Alfama, Lisbon. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 90 m² in Alfama, Lissabon. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/45/p1.jpg",
-    gallery: ["assets/img/props/45/p1.jpg", "assets/img/props/45/p2.jpg", "assets/img/props/45/p3.jpg", "assets/img/props/45/p4.jpg", "assets/img/props/45/p5.jpg"]
+    image: "assets/img/props/92/p1.jpg",
+    gallery: ["assets/img/props/92/p1.jpg", "assets/img/props/92/p2.jpg", "assets/img/props/92/p3.jpg", "assets/img/props/92/p4.jpg", "assets/img/props/92/p5.jpg"]
   },
   {
     id: 93,
@@ -1905,8 +1905,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 62 m² in Mokotów, Warsaw. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 62 m² in Mokotów, Warschau. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/52/p1.jpg",
-    gallery: ["assets/img/props/52/p1.jpg", "assets/img/props/52/p2.jpg", "assets/img/props/52/p3.jpg", "assets/img/props/52/p4.jpg", "assets/img/props/52/p5.jpg"]
+    image: "assets/img/props/93/p1.jpg",
+    gallery: ["assets/img/props/93/p1.jpg", "assets/img/props/93/p2.jpg", "assets/img/props/93/p3.jpg", "assets/img/props/93/p4.jpg", "assets/img/props/93/p5.jpg"]
   },
   {
     id: 94,
@@ -1928,8 +1928,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 84 m² in Ranelagh, Dublin. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 84 m² in Ranelagh, Dublin. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/59/p1.jpg",
-    gallery: ["assets/img/props/59/p1.jpg", "assets/img/props/59/p2.jpg", "assets/img/props/59/p3.jpg", "assets/img/props/59/p4.jpg", "assets/img/props/59/p5.jpg"]
+    image: "assets/img/props/94/p1.jpg",
+    gallery: ["assets/img/props/94/p1.jpg", "assets/img/props/94/p2.jpg", "assets/img/props/94/p3.jpg", "assets/img/props/94/p4.jpg", "assets/img/props/94/p5.jpg"]
   },
   {
     id: 95,
@@ -1951,8 +1951,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A penthouse of 190 m² above the rooftops of Dubai Marina, Dubai. Floor-to-ceiling windows, a private terrace and private roof terrace define this home.", "de": "Ein Penthouse mit 190 m² über den Dächern von Dubai Marina, Dubai. Bodenhohe Fenster, eine private Terrasse und Private Dachterrasse prägen dieses Zuhause."},
     features: {"en": ["Private roof terrace", "Panoramic views", "Concierge service", "Secure parking", "Gym in building"], "de": ["Private Dachterrasse", "Panoramablick", "Concierge-Service", "Sicherer Stellplatz", "Fitnessstudio im Haus"]},
-    image: "assets/img/props/66/p1.jpg",
-    gallery: ["assets/img/props/66/p1.jpg", "assets/img/props/66/p2.jpg", "assets/img/props/66/p3.jpg", "assets/img/props/66/p4.jpg", "assets/img/props/66/p5.jpg"]
+    image: "assets/img/props/95/p1.jpg",
+    gallery: ["assets/img/props/95/p1.jpg", "assets/img/props/95/p2.jpg", "assets/img/props/95/p3.jpg", "assets/img/props/95/p4.jpg", "assets/img/props/95/p5.jpg"]
   },
   {
     id: 96,
@@ -1974,8 +1974,8 @@ const PROPERTIES = [
     featured: true,
     description: {"en": "A detached family home with 480 m² of living space in Palm Jumeirah, Dubai, set on a quiet residential street. private garden and generous spaces inside and out give room for the whole family.", "de": "Ein freistehendes Familienhaus mit 480 m² Wohnfläche in Palm Jumeirah, Dubai, in ruhiger Wohnlage. Eigener Garten und großzügige Räume innen wie außen bieten Platz für die ganze Familie."},
     features: {"en": ["Private garden", "Garage & driveway", "Open-plan living", "Home office", "Terrace"], "de": ["Eigener Garten", "Garage & Zufahrt", "Offener Wohnbereich", "Arbeitszimmer", "Terrasse"]},
-    image: "assets/img/props/73/p1.jpg",
-    gallery: ["assets/img/props/73/p1.jpg", "assets/img/props/73/p2.jpg", "assets/img/props/73/p3.jpg", "assets/img/props/73/p4.jpg", "assets/img/props/73/p5.jpg"]
+    image: "assets/img/props/96/p1.jpg",
+    gallery: ["assets/img/props/96/p1.jpg", "assets/img/props/96/p2.jpg", "assets/img/props/96/p3.jpg", "assets/img/props/96/p4.jpg", "assets/img/props/96/p5.jpg"]
   },
   {
     id: 97,
@@ -1997,8 +1997,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 3-bedroom apartment of 145 m² in Beşiktaş, Istanbul. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 3-Zimmer-Wohnung mit 145 m² in Beşiktaş, Istanbul. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/5/p1.jpg",
-    gallery: ["assets/img/props/5/p1.jpg", "assets/img/props/5/p2.jpg", "assets/img/props/5/p3.jpg", "assets/img/props/5/p4.jpg", "assets/img/props/5/p5.jpg"]
+    image: "assets/img/props/97/p1.jpg",
+    gallery: ["assets/img/props/97/p1.jpg", "assets/img/props/97/p2.jpg", "assets/img/props/97/p3.jpg", "assets/img/props/97/p4.jpg", "assets/img/props/97/p5.jpg"]
   },
   {
     id: 98,
@@ -2020,8 +2020,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 95 m² in Sea Point, Cape Town. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 95 m² in Sea Point, Kapstadt. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/12/p1.jpg",
-    gallery: ["assets/img/props/12/p1.jpg", "assets/img/props/12/p2.jpg", "assets/img/props/12/p3.jpg", "assets/img/props/12/p4.jpg", "assets/img/props/12/p5.jpg"]
+    image: "assets/img/props/98/p1.jpg",
+    gallery: ["assets/img/props/98/p1.jpg", "assets/img/props/98/p2.jpg", "assets/img/props/98/p3.jpg", "assets/img/props/98/p4.jpg", "assets/img/props/98/p5.jpg"]
   },
   {
     id: 99,
@@ -2043,8 +2043,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A detached family home with 350 m² of living space in Lekki Phase 1, Lagos, set on a quiet residential street. private garden and generous spaces inside and out give room for the whole family.", "de": "Ein freistehendes Familienhaus mit 350 m² Wohnfläche in Lekki Phase 1, Lagos, in ruhiger Wohnlage. Eigener Garten und großzügige Räume innen wie außen bieten Platz für die ganze Familie."},
     features: {"en": ["Private garden", "Garage & driveway", "Open-plan living", "Home office", "Terrace"], "de": ["Eigener Garten", "Garage & Zufahrt", "Offener Wohnbereich", "Arbeitszimmer", "Terrasse"]},
-    image: "assets/img/props/19/p1.jpg",
-    gallery: ["assets/img/props/19/p1.jpg", "assets/img/props/19/p2.jpg", "assets/img/props/19/p3.jpg", "assets/img/props/19/p4.jpg", "assets/img/props/19/p5.jpg"]
+    image: "assets/img/props/99/p1.jpg",
+    gallery: ["assets/img/props/99/p1.jpg", "assets/img/props/99/p2.jpg", "assets/img/props/99/p3.jpg", "assets/img/props/99/p4.jpg", "assets/img/props/99/p5.jpg"]
   },
   {
     id: 100,
@@ -2066,8 +2066,8 @@ const PROPERTIES = [
     featured: true,
     description: {"en": "A penthouse of 240 m² above the rooftops of Ikoyi, Lagos. Floor-to-ceiling windows, a private terrace and private roof terrace define this home.", "de": "Ein Penthouse mit 240 m² über den Dächern von Ikoyi, Lagos. Bodenhohe Fenster, eine private Terrasse und Private Dachterrasse prägen dieses Zuhause."},
     features: {"en": ["Private roof terrace", "Panoramic views", "Concierge service", "Secure parking", "Gym in building"], "de": ["Private Dachterrasse", "Panoramablick", "Concierge-Service", "Sicherer Stellplatz", "Fitnessstudio im Haus"]},
-    image: "assets/img/props/26/p1.jpg",
-    gallery: ["assets/img/props/26/p1.jpg", "assets/img/props/26/p2.jpg", "assets/img/props/26/p3.jpg", "assets/img/props/26/p4.jpg", "assets/img/props/26/p5.jpg"]
+    image: "assets/img/props/100/p1.jpg",
+    gallery: ["assets/img/props/100/p1.jpg", "assets/img/props/100/p2.jpg", "assets/img/props/100/p3.jpg", "assets/img/props/100/p4.jpg", "assets/img/props/100/p5.jpg"]
   },
   {
     id: 101,
@@ -2089,8 +2089,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A detached family home with 380 m² of living space in Maitama, Abuja, set on a quiet residential street. private garden and generous spaces inside and out give room for the whole family.", "de": "Ein freistehendes Familienhaus mit 380 m² Wohnfläche in Maitama, Abuja, in ruhiger Wohnlage. Eigener Garten und großzügige Räume innen wie außen bieten Platz für die ganze Familie."},
     features: {"en": ["Private garden", "Garage & driveway", "Open-plan living", "Home office", "Terrace"], "de": ["Eigener Garten", "Garage & Zufahrt", "Offener Wohnbereich", "Arbeitszimmer", "Terrasse"]},
-    image: "assets/img/props/33/p1.jpg",
-    gallery: ["assets/img/props/33/p1.jpg", "assets/img/props/33/p2.jpg", "assets/img/props/33/p3.jpg", "assets/img/props/33/p4.jpg", "assets/img/props/33/p5.jpg"]
+    image: "assets/img/props/101/p1.jpg",
+    gallery: ["assets/img/props/101/p1.jpg", "assets/img/props/101/p2.jpg", "assets/img/props/101/p3.jpg", "assets/img/props/101/p4.jpg", "assets/img/props/101/p5.jpg"]
   },
   {
     id: 102,
@@ -2112,8 +2112,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A detached family home with 320 m² of living space in East Legon, Accra, set on a quiet residential street. private garden and generous spaces inside and out give room for the whole family.", "de": "Ein freistehendes Familienhaus mit 320 m² Wohnfläche in East Legon, Accra, in ruhiger Wohnlage. Eigener Garten und großzügige Räume innen wie außen bieten Platz für die ganze Familie."},
     features: {"en": ["Private garden", "Garage & driveway", "Open-plan living", "Home office", "Terrace"], "de": ["Eigener Garten", "Garage & Zufahrt", "Offener Wohnbereich", "Arbeitszimmer", "Terrasse"]},
-    image: "assets/img/props/40/p1.jpg",
-    gallery: ["assets/img/props/40/p1.jpg", "assets/img/props/40/p2.jpg", "assets/img/props/40/p3.jpg", "assets/img/props/40/p4.jpg", "assets/img/props/40/p5.jpg"]
+    image: "assets/img/props/102/p1.jpg",
+    gallery: ["assets/img/props/102/p1.jpg", "assets/img/props/102/p2.jpg", "assets/img/props/102/p3.jpg", "assets/img/props/102/p4.jpg", "assets/img/props/102/p5.jpg"]
   },
   {
     id: 103,
@@ -2135,8 +2135,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 3-bedroom apartment of 130 m² in Kilimani, Nairobi. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 3-Zimmer-Wohnung mit 130 m² in Kilimani, Nairobi. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/47/p1.jpg",
-    gallery: ["assets/img/props/47/p1.jpg", "assets/img/props/47/p2.jpg", "assets/img/props/47/p3.jpg", "assets/img/props/47/p4.jpg", "assets/img/props/47/p5.jpg"]
+    image: "assets/img/props/103/p1.jpg",
+    gallery: ["assets/img/props/103/p1.jpg", "assets/img/props/103/p2.jpg", "assets/img/props/103/p3.jpg", "assets/img/props/103/p4.jpg", "assets/img/props/103/p5.jpg"]
   },
   {
     id: 104,
@@ -2158,8 +2158,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 88 m² in Yorkville, Toronto. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 88 m² in Yorkville, Toronto. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/54/p1.jpg",
-    gallery: ["assets/img/props/54/p1.jpg", "assets/img/props/54/p2.jpg", "assets/img/props/54/p3.jpg", "assets/img/props/54/p4.jpg", "assets/img/props/54/p5.jpg"]
+    image: "assets/img/props/104/p1.jpg",
+    gallery: ["assets/img/props/104/p1.jpg", "assets/img/props/104/p2.jpg", "assets/img/props/104/p3.jpg", "assets/img/props/104/p4.jpg", "assets/img/props/104/p5.jpg"]
   },
   {
     id: 105,
@@ -2181,8 +2181,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A detached family home with 260 m² of living space in Kitsilano, Vancouver, set on a quiet residential street. private garden and generous spaces inside and out give room for the whole family.", "de": "Ein freistehendes Familienhaus mit 260 m² Wohnfläche in Kitsilano, Vancouver, in ruhiger Wohnlage. Eigener Garten und großzügige Räume innen wie außen bieten Platz für die ganze Familie."},
     features: {"en": ["Private garden", "Garage & driveway", "Open-plan living", "Home office", "Terrace"], "de": ["Eigener Garten", "Garage & Zufahrt", "Offener Wohnbereich", "Arbeitszimmer", "Terrasse"]},
-    image: "assets/img/props/61/p1.jpg",
-    gallery: ["assets/img/props/61/p1.jpg", "assets/img/props/61/p2.jpg", "assets/img/props/61/p3.jpg", "assets/img/props/61/p4.jpg", "assets/img/props/61/p5.jpg"]
+    image: "assets/img/props/105/p1.jpg",
+    gallery: ["assets/img/props/105/p1.jpg", "assets/img/props/105/p2.jpg", "assets/img/props/105/p3.jpg", "assets/img/props/105/p4.jpg", "assets/img/props/105/p5.jpg"]
   },
   {
     id: 106,
@@ -2204,8 +2204,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 85 m² in Bondi Beach, Sydney. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 85 m² in Bondi Beach, Sydney. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/68/p1.jpg",
-    gallery: ["assets/img/props/68/p1.jpg", "assets/img/props/68/p2.jpg", "assets/img/props/68/p3.jpg", "assets/img/props/68/p4.jpg", "assets/img/props/68/p5.jpg"]
+    image: "assets/img/props/106/p1.jpg",
+    gallery: ["assets/img/props/106/p1.jpg", "assets/img/props/106/p2.jpg", "assets/img/props/106/p3.jpg", "assets/img/props/106/p4.jpg", "assets/img/props/106/p5.jpg"]
   },
   {
     id: 107,
@@ -2227,8 +2227,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 72 m² in South Yarra, Melbourne. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 72 m² in South Yarra, Melbourne. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/75/p1.jpg",
-    gallery: ["assets/img/props/75/p1.jpg", "assets/img/props/75/p2.jpg", "assets/img/props/75/p3.jpg", "assets/img/props/75/p4.jpg", "assets/img/props/75/p5.jpg"]
+    image: "assets/img/props/107/p1.jpg",
+    gallery: ["assets/img/props/107/p1.jpg", "assets/img/props/107/p2.jpg", "assets/img/props/107/p3.jpg", "assets/img/props/107/p4.jpg", "assets/img/props/107/p5.jpg"]
   },
   {
     id: 108,
@@ -2250,8 +2250,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 92 m² in Orchard, Singapore. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 92 m² in Orchard, Singapur. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/7/p1.jpg",
-    gallery: ["assets/img/props/7/p1.jpg", "assets/img/props/7/p2.jpg", "assets/img/props/7/p3.jpg", "assets/img/props/7/p4.jpg", "assets/img/props/7/p5.jpg"]
+    image: "assets/img/props/108/p1.jpg",
+    gallery: ["assets/img/props/108/p1.jpg", "assets/img/props/108/p2.jpg", "assets/img/props/108/p3.jpg", "assets/img/props/108/p4.jpg", "assets/img/props/108/p5.jpg"]
   },
   {
     id: 109,
@@ -2273,8 +2273,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 65 m² in Shibuya, Tokyo. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 65 m² in Shibuya, Tokio. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/14/p1.jpg",
-    gallery: ["assets/img/props/14/p1.jpg", "assets/img/props/14/p2.jpg", "assets/img/props/14/p3.jpg", "assets/img/props/14/p4.jpg", "assets/img/props/14/p5.jpg"]
+    image: "assets/img/props/109/p1.jpg",
+    gallery: ["assets/img/props/109/p1.jpg", "assets/img/props/109/p2.jpg", "assets/img/props/109/p3.jpg", "assets/img/props/109/p4.jpg", "assets/img/props/109/p5.jpg"]
   },
   {
     id: 110,
@@ -2296,8 +2296,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 3-bedroom apartment of 140 m² in Jardins, São Paulo. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 3-Zimmer-Wohnung mit 140 m² in Jardins, São Paulo. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/21/p1.jpg",
-    gallery: ["assets/img/props/21/p1.jpg", "assets/img/props/21/p2.jpg", "assets/img/props/21/p3.jpg", "assets/img/props/21/p4.jpg", "assets/img/props/21/p5.jpg"]
+    image: "assets/img/props/110/p1.jpg",
+    gallery: ["assets/img/props/110/p1.jpg", "assets/img/props/110/p2.jpg", "assets/img/props/110/p3.jpg", "assets/img/props/110/p4.jpg", "assets/img/props/110/p5.jpg"]
   },
   {
     id: 111,
@@ -2319,8 +2319,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 120 m² in Polanco, Mexico City. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 120 m² in Polanco, Mexiko-Stadt. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/28/p1.jpg",
-    gallery: ["assets/img/props/28/p1.jpg", "assets/img/props/28/p2.jpg", "assets/img/props/28/p3.jpg", "assets/img/props/28/p4.jpg", "assets/img/props/28/p5.jpg"]
+    image: "assets/img/props/111/p1.jpg",
+    gallery: ["assets/img/props/111/p1.jpg", "assets/img/props/111/p2.jpg", "assets/img/props/111/p3.jpg", "assets/img/props/111/p4.jpg", "assets/img/props/111/p5.jpg"]
   },
   {
     id: 112,
@@ -2342,8 +2342,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 3-bedroom apartment of 155 m² in Bandra West, Mumbai. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 3-Zimmer-Wohnung mit 155 m² in Bandra West, Mumbai. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/35/p1.jpg",
-    gallery: ["assets/img/props/35/p1.jpg", "assets/img/props/35/p2.jpg", "assets/img/props/35/p3.jpg", "assets/img/props/35/p4.jpg", "assets/img/props/35/p5.jpg"]
+    image: "assets/img/props/112/p1.jpg",
+    gallery: ["assets/img/props/112/p1.jpg", "assets/img/props/112/p2.jpg", "assets/img/props/112/p3.jpg", "assets/img/props/112/p4.jpg", "assets/img/props/112/p5.jpg"]
   },
   {
     id: 113,
@@ -2365,8 +2365,8 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A single-level villa of 280 m² in Seminyak, Bali, designed for effortless indoor-outdoor living. private pool and a smooth flow between the garden and the open living spaces.", "de": "Eine ebenerdige Villa mit 280 m² in Seminyak, Bali, konzipiert für müheloses Wohnen von innen nach außen. Privater Pool und ein fließender Übergang zwischen Garten und offenen Wohnräumen."},
     features: {"en": ["Private pool", "Large garden plot", "Outdoor terrace", "Car port", "Tropical planting"], "de": ["Privater Pool", "Großes Grundstück", "Außenterrasse", "Carport", "Tropische Bepflanzung"]},
-    image: "assets/img/props/42/p1.jpg",
-    gallery: ["assets/img/props/42/p1.jpg", "assets/img/props/42/p2.jpg", "assets/img/props/42/p3.jpg", "assets/img/props/42/p4.jpg", "assets/img/props/42/p5.jpg"]
+    image: "assets/img/props/113/p1.jpg",
+    gallery: ["assets/img/props/113/p1.jpg", "assets/img/props/113/p2.jpg", "assets/img/props/113/p3.jpg", "assets/img/props/113/p4.jpg", "assets/img/props/113/p5.jpg"]
   },
   {
     id: 114,
@@ -2388,7 +2388,7 @@ const PROPERTIES = [
     featured: false,
     description: {"en": "A well-presented 2-bedroom apartment of 84 m² in Sukhumvit, Bangkok. Light-filled rooms, fitted kitchen and easy access to shops, schools and transport make it an easy choice for everyday living.", "de": "Eine gepflegte 2-Zimmer-Wohnung mit 84 m² in Sukhumvit, Bangkok. Helle Räume, Einbauküche und eine hervorragende Anbindung an Geschäfte, Schulen und Verkehr machen den Alltag leicht."},
     features: {"en": ["Fitted kitchen", "Balcony", "Elevator access", "Air conditioning", "Storage room"], "de": ["Einbauküche", "Balkon", "Aufzug", "Klimaanlage", "Abstellraum"]},
-    image: "assets/img/props/49/p1.jpg",
-    gallery: ["assets/img/props/49/p1.jpg", "assets/img/props/49/p2.jpg", "assets/img/props/49/p3.jpg", "assets/img/props/49/p4.jpg", "assets/img/props/49/p5.jpg"]
+    image: "assets/img/props/114/p1.jpg",
+    gallery: ["assets/img/props/114/p1.jpg", "assets/img/props/114/p2.jpg", "assets/img/props/114/p3.jpg", "assets/img/props/114/p4.jpg", "assets/img/props/114/p5.jpg"]
   }
 ];
