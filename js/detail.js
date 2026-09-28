@@ -44,7 +44,7 @@ function renderDetail() {
   } else {
     priceEl.innerHTML = formatPrice(p.price, cur);
     subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.pm2 || (p.price / p.sqm), cur) });
-    costsEl.innerHTML = "";
+    costsEl.innerHTML = p.fin ? `<div class="cost-row"><span>${t("d_financing")}</span><span>${formatPrice(p.fin, cur)} / ${t("month_short")}</span></div>` : "";
   }
 
   /* facts table */

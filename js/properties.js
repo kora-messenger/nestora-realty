@@ -23,6 +23,28 @@ const PROPERTIES = [
     gallery: ["assets/img/props/115/p1.jpg", "assets/img/props/115/p2.jpg", "assets/img/props/115/p3.jpg", "assets/img/props/115/p4.jpg", "assets/img/props/115/p5.jpg", "assets/img/props/115/p6.jpg", "assets/img/props/115/p7.jpg", "assets/img/props/115/p8.jpg", "assets/img/props/115/p9.jpg", "assets/img/props/115/p10.jpg", "assets/img/props/115/p11.jpg", "assets/img/props/115/p12.jpg", "assets/img/props/115/p13.jpg", "assets/img/props/115/p14.jpg", "assets/img/props/115/p15.jpg", "assets/img/props/115/p16.jpg"]
   },
   {
+    id: 116,
+    title: {"en": "Townhouse in the Heart of Düsseldorf", "de": "Townhouse im Herzen Düsseldorfs"},
+    status: "sale", type: "duplex",
+    price: 620000,
+    fin: 2053,
+    priceNote: "",
+    location: {"en": "Stadtmitte, Düsseldorf", "de": "Stadtmitte, Düsseldorf"},
+    country: {"en": "Germany", "de": "Deutschland"}, state: {"en": "North Rhine-Westphalia", "de": "Nordrhein-Westfalen"}, city: {"en": "Düsseldorf", "de": "Düsseldorf"}, district: {"en": "Stadtmitte", "de": "Stadtmitte"},
+    lat: 51.2225, lng: 6.7835,
+    address: "Am Wehrhahn 61a, 40211 Düsseldorf",
+    beds: 2, baths: 1, sqm: 89.3, year: 2020, energyClass: "A",
+    floor: "1. – 2. OG",
+    flags: { balcony: 0, garden: 1, elevator: 0, kitchen: 1, garage: 0 },
+    utilities: 0, heating: 0, deposit: 0,
+    pets: true, available: "sofort",
+    badge: {"en": "New", "de": "Neu"},
+    featured: true,
+    description: {"en": "This mint-condition townhouse apartment sits in the heart of Düsseldorf's Stadtmitte, at Am Wehrhahn 61a. Built in 2020 as part of a modern apartment block, the approx. 89.3 m\u00b2 home is spread over two levels (1st \u2013 2nd floor) and offers 3 rooms finished to a sophisticated standard. The efficient heat pump runs on electricity, keeping energy demand down to just 35 kWh/(m\u00b2\u00b7a) \u2013 energy class A, with the energy consumption certificate available for inspection. An additional usable area of approx. 5.4 m\u00b2 and the building's 279 m\u00b2 plot round off the offering. The property has been vacant since 01.03.2026 and is available immediately. Financing from \u20AC2,053 / month. From here, the Altstadt, Carlstadt and the K\u00f6nigsallee are all within a few minutes' walk, with Düsseldorf Hauptbahnhof and the Rhine promenade close by \u2013 a central address that is hard to beat.", "de": "Diese gepflegte Townhouse-Wohnung in Neuwertzustand liegt im Herzen der Düsseldorfer Stadtmitte, Am Wehrhahn 61a. Das 2020 errichtete Appartementhaus beherbergt die ca. 89,3 m\u00b2 große Wohnung auf zwei Ebenen (1. \u2013 2. OG) mit 3 Zimmern in gehobener Ausstattungsqualität. Die effiziente Wärmepumpe wird mit Strom betrieben und hält den Endenergiebedarf bei nur 35 kWh/(m\u00b2\u00b7a) \u2013 Energieklasse A, Energieverbrauchsausweis liegt vor. Eine Nutzfläche von ca. 5,4 m\u00b2 sowie das 279 m\u00b2 große Grundstück des Hauses runden das Angebot ab. Die Wohnung ist seit 01.03.2026 vermietetfrei und sofort verfügbar. Finanzierung ab 2.053 \u20AC / Monat. Altstadt, Carlstadt und die Königsallee sind von hier aus in wenigen Gehminuten erreichbar, Hauptbahnhof und Rheinufer liegen in unmittelbarer Nähe \u2013 eine zentralere Adresse gibt es kaum."},
+    features: {"en": ["Built in 2020, house ready, mint condition", "Two levels: 1st – 2nd floor", "3 rooms, sophisticated interior quality", "Efficient heat pump heating (electricity)", "Energy class A – 35 kWh/(m²·a)", "Energy consumption certificate available", "Usable floor space approx. 5.4 m²", "Building plot 279 m²", "Apartment block", "Vacant – available immediately", "Financing from €2,053 / month", "Walk to Altstadt, Königsallee & main station"], "de": ["Baujahr 2020, bezugsfertig, Neuwertzustand", "Zwei Ebenen: 1. – 2. OG", "3 Zimmer, gehobene Ausstattungsqualität", "Effiziente Wärmepumpe (Strom)", "Energieklasse A – 35 kWh/(m²·a)", "Energieverbrauchsausweis vorhanden", "Nutzfläche ca. 5,4 m²", "Grundstück 279 m²", "Mehrfamilienhaus", "Vermietetfrei – sofort verfügbar", "Finanzierung ab 2.053 € / Monat", "Altstadt, Königsallee & Hauptbahnhof zu Fuß erreichbar"]},
+    gallery: ["assets/img/props/116/p1.jpg", "assets/img/props/116/p2.jpg", "assets/img/props/116/p3.jpg", "assets/img/props/116/p4.jpg", "assets/img/props/116/p5.jpg", "assets/img/props/116/p6.jpg", "assets/img/props/116/p7.jpg", "assets/img/props/116/p8.jpg", "assets/img/props/116/p9.jpg", "assets/img/props/116/p10.jpg", "assets/img/props/116/p11.jpg"]
+  },
+  {
     id: 1,
     title: {"en": "Bright 3-Room Altbau Apartment", "de": "Helle 3-Zimmer-Altbauwohnung"},
     status: "rent", type: "apartment",
