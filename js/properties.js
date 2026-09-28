@@ -4,7 +4,7 @@ const PROPERTIES = [
     id: 115,
     title: {"en": "Live Like in Your Own House – Spacious House-in-House Between Düsseldorf and the Ruhr Area", "de": "Wohnen wie im eigenen Haus – großzügiges Haus-in-Haus-Konzept zwischen Düsseldorf und Ruhrgebiet"},
     status: "sale", type: "duplex",
-    price: 345000,
+    price: 250000,
     pm2: 1500,
     priceNote: "",
     location: {"en": "Verberg, Krefeld", "de": "Verberg, Krefeld"},
