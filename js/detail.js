@@ -30,18 +30,19 @@ function renderDetail() {
   const priceEl = document.getElementById("d-price");
   const subEl = document.getElementById("d-price-sub");
   const costsEl = document.getElementById("d-costs");
+  const cur = p.currency || "EUR";
   if (p.status === "rent") {
-    priceEl.innerHTML = formatEuro(p.price) + `<span class="d-note">${t("d_rent")}</span>`;
-    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm) });
+    priceEl.innerHTML = formatPrice(p.price, cur) + `<span class="d-note">${t("d_rent")}</span>`;
+    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) });
     const total = p.price + (p.utilities || 0) + (p.heating || 0);
     costsEl.innerHTML = `
-      <div class="cost-row"><span>${t("d_utilities")}</span><span>+ ${formatEuro(p.utilities || 0)}</span></div>
-      <div class="cost-row"><span>${t("d_heating")}</span><span>+ ${formatEuro(p.heating || 0)}</span></div>
-      <div class="cost-row total"><span>${t("d_total")}</span><span>${formatEuro(total)}</span></div>
-      <div class="cost-row"><span>${t("d_deposit")}</span><span>${formatEuro(p.deposit || 0)}</span></div>`;
+      <div class="cost-row"><span>${t("d_utilities")}</span><span>+ ${formatPrice(p.utilities || 0, cur)}</span></div>
+      <div class="cost-row"><span>${t("d_heating")}</span><span>+ ${formatPrice(p.heating || 0, cur)}</span></div>
+      <div class="cost-row total"><span>${t("d_total")}</span><span>${formatPrice(total, cur)}</span></div>
+      <div class="cost-row"><span>${t("d_deposit")}</span><span>${formatPrice(p.deposit || 0, cur)}</span></div>`;
   } else {
-    priceEl.innerHTML = formatEuro(p.price);
-    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm) });
+    priceEl.innerHTML = formatPrice(p.price, cur);
+    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) });
     costsEl.innerHTML = "";
   }
 
@@ -56,6 +57,7 @@ function renderDetail() {
     [t("d_energy"), p.energyClass],
     p.floor ? [t("d_floor"), p.floor] : null,
     [t("d_state"), L(p.state)],
+    p.country && p.country.en !== "Germany" ? [t("d_country"), L(p.country)] : null,
     [t("d_pets"), p.pets ? t("d_pets_ok") : t("d_pets_no")],
     [t("d_available"), p.available === "sofort" ? t("d_now") : p.available],
   ].filter(Boolean);

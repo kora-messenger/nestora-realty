@@ -112,15 +112,17 @@ function initCounters() {
 }
 
 /* ---------- Property cards ---------- */
-function fmtPm2(v) {
+function fmtPm2(v, cur) {
+  if (cur && cur !== "EUR") return formatPrice(v, cur);
   const d = v >= 100 ? 0 : (v >= 20 ? 1 : 2);
   return v.toLocaleString(LANG === "de" ? "de-DE" : "en-US", { minimumFractionDigits: 0, maximumFractionDigits: d }) + " \u20AC";
 }
 
 function cardHtml(p) {
-  const price = formatEuro(p.price) + (p.priceNote ? `<span class="card-price-note">${t(p.priceNote)}</span>` : "");
+  const cur = p.currency || "EUR";
+  const price = formatPrice(p.price, cur) + (p.priceNote ? `<span class="card-price-note">${t(p.priceNote)}</span>` : "");
   const badge = p.badge ? `<span class="card-badge badge-gold">${L(p.badge)}</span>` : "";
-  const pm2 = `<span class="card-pm2">${t("per_m2", { p: fmtPm2(p.price / p.sqm) })}</span>`;
+  const pm2 = `<span class="card-pm2">${t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) })}</span>`;
   const ec = p.energyClass ? `<span class="ec ec-${p.energyClass.replace("+", "p")}">${p.energyClass}</span>` : "";
   const hearted = FAVS.has(p.id) ? " active" : "";
   return `
@@ -137,7 +139,7 @@ function cardHtml(p) {
     <div class="card-body">
       <div class="card-price">${price}${pm2}</div>
       <h3 class="card-title">${L(p.title)}</h3>
-      <p class="card-location"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${L(p.location)}</p>
+      <p class="card-location"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${L(p.location)}${p.country && p.country.en !== "Germany" ? ", " + L(p.country) : ""}</p>
       <div class="card-specs">
         <span><strong>${p.beds}</strong> ${t("beds")}</span>
         <span><strong>${p.baths}</strong> ${t("baths")}</span>
@@ -181,7 +183,9 @@ function bindCards(scope) {
 
 function renderFeatured() {
   const grid = document.getElementById("featured-grid");
-  const items = PROPERTIES.filter(p => p.featured).slice(0, 9);
+  const deFeat = PROPERTIES.filter(p => p.featured && (!p.country || p.country.en === "Germany")).slice(0, 5);
+  const intlFeat = PROPERTIES.filter(p => p.featured && p.country && p.country.en !== "Germany").slice(0, 4);
+  const items = deFeat.concat(intlFeat);
   grid.innerHTML = items.map(cardHtml).join("");
   bindCards(grid);
   initReveal();
@@ -274,6 +278,10 @@ function initFilters() {
     const q = norm(qRaw.trim());
     if (q.length < 2) return [];
     const out = [];
+    for (const co of (typeof COUNTRIES !== "undefined" ? COUNTRIES : [])) {
+      if (norm(co.en).includes(q) || norm(co.de).includes(q))
+        out.push({ kind: "country", label: co });
+    }
     for (const st of STATES) {
       if (norm(st.en).includes(q) || norm(st.de).includes(q))
         out.push({ kind: "state", label: st });
@@ -308,7 +316,7 @@ function initFilters() {
       locq.value = sug.label[L({en:"en",de:"de"})] || sug.label.en;
     }
     drop.hidden = true;
-    if (radiusSel) radiusSel.hidden = false;
+    if (radiusSel) radiusSel.hidden = (kind === "country");
     apply();
   }
   window._pickLoc = pickLoc;
@@ -322,7 +330,7 @@ function initFilters() {
       drop.innerHTML = sugg.map((g, i) =>
         `<div class="loc-item" data-i="${i}">
            <span class="loc-name">${g.kind === "zip" ? g.sub.split(" — ")[0] : (L({en:"en",de:"de"}) === "de" ? g.label.de : g.label.en)}${g.kind === "zip" ? " · " + (L({en:"en",de:"de"}) === "de" ? g.label.de : g.label.en) : ""}</span>
-           <span class="loc-sub">${g.kind === "state" ? t("loc_states") : g.kind === "city" ? (t("loc_cities") + " · " + g.sub) : g.kind === "zip" ? t("loc_zips") : (t("loc_districts") + " · " + g.sub)}</span>
+           <span class="loc-sub">${g.kind === "country" ? t("loc_countries") : g.kind === "state" ? t("loc_states") : g.kind === "city" ? (t("loc_cities") + " · " + g.sub) : g.kind === "zip" ? t("loc_zips") : (t("loc_districts") + " · " + g.sub)}</span>
          </div>`).join("");
       drop.hidden = false;
       [...drop.children].forEach(el => el.addEventListener("click", () => pickLoc(sugg[parseInt(el.dataset.i, 10)])));
@@ -421,6 +429,9 @@ function initFilters() {
     for (const c of CITIES) for (const nm of [c.en, c.de]) {
       if (norm(nm).length > bestLen && lown.includes(norm(nm))) { bestPlace = { kind: "city", label: c }; bestLen = nm.length; }
     }
+    for (const co of (typeof COUNTRIES !== "undefined" ? COUNTRIES : [])) for (const nm of [co.en, co.de]) {
+      if (norm(nm).length > bestLen && lown.includes(norm(nm))) { bestPlace = { kind: "country", label: co }; bestLen = nm.length; }
+    }
     for (const st of STATES) for (const nm of [st.en, st.de]) {
       if (norm(nm).length > bestLen && lown.includes(norm(nm))) { bestPlace = { kind: "state", label: st }; bestLen = nm.length; }
     }
@@ -472,6 +483,10 @@ function initFilters() {
       for (const f of feats) if (!p.flags || !p.flags[f]) return false;
       if (favsOnly && !FAVS.has(p.id)) return false;
       if (loc) {
+        if (loc.kind === "country") {
+          const pc = p.country || { en: "Germany", de: "Deutschland" };
+          if (pc.en !== loc.name && pc.de !== loc.nameDe) return false;
+        }
         if (loc.kind === "state" && p.state.en !== loc.name) return false;
         if (loc.kind === "city") {
           const sameCity = p.city.en === loc.name || p.city.de === loc.nameDe;
@@ -506,6 +521,7 @@ function initFilters() {
     const grid = document.getElementById("listings-grid");
     if (!items.length && loc && grid) {
       const anyInLoc = PROPERTIES.some(p =>
+        (loc.kind === "country" && ((p.country && (p.country.en === loc.name || p.country.de === loc.nameDe)) || (!p.country && loc.name === "Germany"))) ||
         (loc.kind === "state" && p.state.en === loc.name) ||
         (loc.kind === "city" && (p.city.en === loc.name || p.city.de === loc.nameDe)) ||
         (loc.kind === "district" && p.district.en === loc.name));

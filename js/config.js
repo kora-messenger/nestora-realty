@@ -31,6 +31,16 @@ function formatEuro(n) {
 }
 
 /* Build a Telegram chat link with a prefilled message */
+/* Format a price in the listing's currency (default EUR, German style) */
+function formatPrice(n, cur) {
+  cur = (cur || "EUR").toUpperCase();
+  if (cur === "EUR") return formatEuro(n);
+  const loc = (typeof LANG !== "undefined" && LANG === "de") ? "de-DE" : "en-US";
+  try {
+    return new Intl.NumberFormat(loc, { style: "currency", currency: cur, maximumFractionDigits: 0 }).format(n);
+  } catch (e) { return formatEuro(n); }
+}
+
 function tgLink(message) {
   return "https://t.me/" + CONFIG.telegram + "?text=" + encodeURIComponent(message);
 }
