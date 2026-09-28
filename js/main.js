@@ -4,6 +4,8 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   hydrateConfig();
+  applyI18n();
+  initLangSwitch();
   initNav();
   initReveal();
   initCounters();
@@ -21,22 +23,38 @@ document.addEventListener("DOMContentLoaded", () => {
   initBackToTop();
 });
 
+/* Re-render dynamic parts when the language changes */
+function refreshDynamic() {
+  hydrateConfig();
+  if (document.getElementById("featured-grid")) renderFeatured();
+  if (document.getElementById("listings-grid")) { renderListings(); initFilters(); }
+  if (document.getElementById("agent-cards")) renderAgents();
+  initTestimonials();
+  initReveal();
+}
+
+function initLangSwitch() {
+  document.querySelectorAll(".lang-switch button").forEach(b => {
+    b.addEventListener("click", () => setLang(b.dataset.lang, true));
+  });
+}
+
 /* ---------- Config hydration (brand, phone, links) ---------- */
 function hydrateConfig() {
   document.querySelectorAll("[data-brand]").forEach(el => el.textContent = CONFIG.brand);
   document.querySelectorAll("[data-phone]").forEach(el => el.textContent = CONFIG.phone);
   document.querySelectorAll("[data-email]").forEach(el => el.textContent = CONFIG.email);
-  document.querySelectorAll("[data-address]").forEach(el => el.textContent = CONFIG.address);
-  document.querySelectorAll("[data-hours]").forEach(el => el.textContent = CONFIG.hours);
+  document.querySelectorAll("[data-address]").forEach(el => el.textContent = L(CONFIG.address));
+  document.querySelectorAll("[data-hours]").forEach(el => el.textContent = t(CONFIG.hours));
 
   document.querySelectorAll('a[data-tel]').forEach(a => a.href = "tel:" + CONFIG.phoneHref);
   document.querySelectorAll('a[data-mail]').forEach(a => a.href = "mailto:" + CONFIG.email);
 
   document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
-  // Generic WhatsApp buttons
+  // Generic WhatsApp buttons: value is an i18n key
   document.querySelectorAll("[data-wa]").forEach(a => {
-    a.href = waLink(a.dataset.wa || "Hello " + CONFIG.brand + ", I'd like to make an enquiry.");
+    a.href = waLink(t(a.dataset.wa || "wa_general"));
   });
 }
 
@@ -85,7 +103,7 @@ function initCounters() {
         if (!start) start = ts;
         const p = Math.min((ts - start) / dur, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * eased).toLocaleString("en-NG") + suffix;
+        el.textContent = Math.round(target * eased).toLocaleString("en-US") + suffix;
         if (p < 1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
@@ -96,26 +114,26 @@ function initCounters() {
 
 /* ---------- Property cards ---------- */
 function cardHtml(p) {
-  const price = formatNaira(p.price) + (p.priceNote ? `<span class="card-price-note">${p.priceNote}</span>` : "");
-  const badge = p.badge ? `<span class="card-badge badge-gold">${p.badge}</span>` : "";
+  const price = formatEuro(p.price) + (p.priceNote ? `<span class="card-price-note">${t(p.priceNote)}</span>` : "");
+  const badge = p.badge ? `<span class="card-badge badge-gold">${L(p.badge)}</span>` : "";
   return `
   <article class="property-card reveal" data-id="${p.id}">
     <div class="card-media">
-      <img src="${p.image}" alt="${p.title}" loading="lazy">
-      <span class="card-status ${p.status}">${p.status === "sale" ? "For Sale" : "For Rent"}</span>
+      <img src="${p.image}" alt="${L(p.title)}" loading="lazy">
+      <span class="card-status ${p.status}">${p.status === "sale" ? t("for_sale") : t("for_rent")}</span>
       ${badge}
     </div>
     <div class="card-body">
       <div class="card-price">${price}</div>
-      <h3 class="card-title">${p.title}</h3>
-      <p class="card-location"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</p>
+      <h3 class="card-title">${L(p.title)}</h3>
+      <p class="card-location"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${L(p.location)}</p>
       <div class="card-specs">
-        <span><strong>${p.beds}</strong> Beds</span>
-        <span><strong>${p.baths}</strong> Baths</span>
-        <span><strong>${p.sqm.toLocaleString("en-NG")}</strong> sqm</span>
+        <span><strong>${p.beds}</strong> ${t("beds")}</span>
+        <span><strong>${p.baths}</strong> ${t("baths")}</span>
+        <span><strong>${p.sqm.toLocaleString("en-US")}</strong> m²</span>
       </div>
     </div>
-    <button class="card-view" data-view="${p.id}">View details <span aria-hidden="true">&rarr;</span></button>
+    <button class="card-view" data-view="${p.id}">${t("view_details")} <span aria-hidden="true">&rarr;</span></button>
   </article>`;
 }
 
@@ -137,12 +155,12 @@ function drawListings() {
   const grid = document.getElementById("listings-grid");
   const items = window._filtered;
   const count = document.getElementById("result-count");
-  if (count) count.textContent = items.length + (items.length === 1 ? " property" : " properties") + " found";
+  if (count) count.textContent = t(items.length === 1 ? "results_one" : "results", { n: items.length });
   if (!items.length) {
     grid.innerHTML = `<div class="empty-state">
-      <h3>No matches found</h3>
-      <p>Try widening your price range or clearing filters.</p>
-      <button class="btn btn-outline" id="clear-empty">Clear filters</button></div>`;
+      <h3>${t("empty_h")}</h3>
+      <p>${t("empty_p")}</p>
+      <button class="btn btn-outline" id="clear-empty">${t("empty_clear")}</button></div>`;
     const c = document.getElementById("clear-empty");
     if (c) c.addEventListener("click", clearFilters);
   } else {
@@ -154,15 +172,18 @@ function drawListings() {
 
 /* ---------- Filters (properties page) ---------- */
 function initFilters() {
-  // populate location dropdown
+  const typeSel = document.getElementById("f-type");
   const locSel = document.getElementById("f-location");
-  if (locSel) {
-    [...new Set(PROPERTIES.map(p => p.location))].sort().forEach(l => {
-      const o = document.createElement("option");
-      o.value = l; o.textContent = l;
-      locSel.appendChild(o);
-    });
+  if (typeSel) {
+    typeSel.innerHTML = `<option value="all">${t("f_any")}</option>` +
+      [...new Set(PROPERTIES.map(p => p.type))].map(ty => `<option value="${ty}">${t("type_" + ty)}</option>`).join("");
   }
+  if (locSel) {
+    const locs = [...new Set(PROPERTIES.map(p => L(p.location)))].sort((a, b) => a.localeCompare(b));
+    locSel.innerHTML = `<option value="all">${t("f_anywhere")}</option>` +
+      locs.map(l => `<option value="${l}">${l}</option>`).join("");
+  }
+
   const apply = () => {
     const q = (document.getElementById("f-search")?.value || "").toLowerCase().trim();
     const status = document.getElementById("f-status")?.value || "all";
@@ -176,10 +197,10 @@ function initFilters() {
     let items = PROPERTIES.filter(p =>
       (status === "all" || p.status === status) &&
       (type === "all" || p.type === type) &&
-      (loc === "all" || p.location === loc) &&
+      (loc === "all" || L(p.location) === loc) &&
       p.price >= min && p.price <= max &&
       p.beds >= beds &&
-      (!q || (p.title + " " + p.location + " " + p.type + " " + p.description).toLowerCase().includes(q))
+      (!q || (L(p.title) + " " + L(p.location) + " " + t("type_" + p.type) + " " + L(p.description)).toLowerCase().includes(q))
     );
 
     if (sort === "price-asc") items.sort((a, b) => a.price - b.price);
@@ -195,7 +216,8 @@ function initFilters() {
 
   // hero search on index page
   const heroForm = document.getElementById("hero-search");
-  if (heroForm) {
+  if (heroForm && !heroForm.dataset.bound) {
+    heroForm.dataset.bound = "1";
     heroForm.addEventListener("submit", e => {
       e.preventDefault();
       const q = document.getElementById("hero-q").value;
@@ -207,7 +229,8 @@ function initFilters() {
 
   // read query params (from hero search)
   const params = new URLSearchParams(window.location.search);
-  if (params.has("q") || params.has("status")) {
+  if ((params.has("q") || params.has("status")) && !window._qApplied) {
+    window._qApplied = true;
     const q = params.get("q") || "";
     const s = params.get("status") || "all";
     const search = document.getElementById("f-search");
@@ -219,7 +242,8 @@ function initFilters() {
 }
 
 function clearFilters() {
-  document.querySelectorAll(".filters input, .filters select").forEach(el => { el.value = el.tagName === "SELECT" ? "all" : ""; });
+  document.querySelectorAll(".filters input").forEach(el => { el.value = ""; });
+  document.querySelectorAll(".filters select").forEach(el => { el.value = "all"; });
   const sort = document.getElementById("f-sort"); if (sort) sort.value = "default";
   window._filtered = PROPERTIES.slice();
   drawListings();
@@ -240,7 +264,6 @@ function initModal() {
   modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
-  // gallery
   modal.querySelector(".gal-prev").addEventListener("click", () => galStep(-1));
   modal.querySelector(".gal-next").addEventListener("click", () => galStep(1));
 }
@@ -252,22 +275,29 @@ function openModal(id) {
   if (!p) return;
   const modal = document.getElementById("property-modal");
 
-  modal.querySelector(".m-status").textContent = p.status === "sale" ? "For Sale" : "For Rent";
+  modal.querySelector(".m-status").textContent = p.status === "sale" ? t("for_sale") : t("for_rent");
   modal.querySelector(".m-status").className = "m-status " + p.status;
-  modal.querySelector(".m-title").textContent = p.title;
-  modal.querySelector(".m-price").textContent = formatNaira(p.price) + (p.priceNote ? " " + p.priceNote : "");
-  modal.querySelector(".m-location").textContent = p.location;
-  modal.querySelector(".m-desc").textContent = p.description;
+  modal.querySelector(".m-title").textContent = L(p.title);
+  modal.querySelector(".m-price").textContent = formatEuro(p.price) + (p.priceNote ? " " + t(p.priceNote) : "");
+  modal.querySelector(".m-location").textContent = L(p.location);
+  modal.querySelector(".m-desc").textContent = L(p.description);
   modal.querySelector(".m-specs").innerHTML = `
-    <div><strong>${p.beds}</strong><span>Bedrooms</span></div>
-    <div><strong>${p.baths}</strong><span>Bathrooms</span></div>
-    <div><strong>${p.sqm.toLocaleString("en-NG")}</strong><span>Square metres</span></div>
-    <div><strong>${p.type}</strong><span>Property type</span></div>`;
+    <div><strong>${p.beds}</strong><span>${t("m_beds")}</span></div>
+    <div><strong>${p.baths}</strong><span>${t("m_baths")}</span></div>
+    <div><strong>${p.sqm.toLocaleString("en-US")}</strong><span>${t("m_sqm")}</span></div>
+    <div><strong>${t("type_" + p.type)}</strong><span>${t("m_type")}</span></div>`;
 
-  modal.querySelector(".m-features").innerHTML = p.features.map(f => `<li>${f}</li>`).join("");
+  modal.querySelector(".m-features").innerHTML = L(p.features).map(f => `<li>${f}</li>`).join("");
 
-  const waMsg = `Hello ${CONFIG.brand}, I'm interested in "${p.title}" (${formatNaira(p.price)}${p.priceNote ? " " + p.priceNote : ""}) in ${p.location}. Please share more details and viewing times. Thank you.`;
+  const waMsg = t("m_msg", {
+    brand: CONFIG.brand,
+    title: L(p.title),
+    price: formatEuro(p.price) + (p.priceNote ? " " + t(p.priceNote) : ""),
+    location: L(p.location)
+  });
   modal.querySelector(".m-wa").href = waLink(waMsg);
+  modal.querySelector(".m-wa").textContent = t("m_viewing");
+  modal.querySelector(".m-call").textContent = t("m_call");
 
   galImages = p.gallery && p.gallery.length ? p.gallery : [p.image];
   galIndex = 0;
@@ -294,9 +324,9 @@ function drawThumbs() {
   const thumbs = document.getElementById("gal-thumbs");
   if (!thumbs) return;
   thumbs.innerHTML = galImages.map((src, i) =>
-    `<img src="${src}" class="${i === galIndex ? "active" : ""}" data-i="${i}" alt="Photo ${i + 1}" loading="lazy">`
+    `<img src="${src}" class="${i === galIndex ? "active" : ""}" data-i="${i}" alt="" loading="lazy">`
   ).join("");
-  thumbs.querySelectorAll("img").forEach(t => t.addEventListener("click", () => { galIndex = parseInt(t.dataset.i, 10); drawGallery(); drawThumbs(); }));
+  thumbs.querySelectorAll("img").forEach(t2 => t2.addEventListener("click", () => { galIndex = parseInt(t2.dataset.i, 10); drawGallery(); drawThumbs(); }));
 }
 
 function galStep(d) {
@@ -307,9 +337,9 @@ function galStep(d) {
 
 /* ---------- Team ---------- */
 const AGENTS = [
-  { name: "Adewale Oguntayo", role: "Principal Consultant", photo: "assets/img/team/agent1.jpg", wa: "Hello, I'd like to speak with Adewale about a property." },
-  { name: "Chiamaka Eze", role: "Head, Residential Sales", photo: "assets/img/team/agent2.jpg", wa: "Hello, I'd like to speak with Chiamaka about buying a home." },
-  { name: "Tunde Bakare", role: "Lettings & Property Manager", photo: "assets/img/team/agent3.jpg", wa: "Hello, I'd like to speak with Tunde about renting a property." }
+  { name: "Stefan Vogel", role: { en: "Principal Consultant", de: "Geschäftsführer" }, photo: "assets/img/team/agent1.jpg", wa: { en: "Hello, I'd like to speak with Stefan about a property.", de: "Hallo, ich möchte mit Stefan über eine Immobilie sprechen." } },
+  { name: "Annika Brandt", role: { en: "Head of Residential Sales", de: "Leiterin Wohnungsbau-Verkauf" }, photo: "assets/img/team/agent2.jpg", wa: { en: "Hello, I'd like to speak with Annika about buying a home.", de: "Hallo, ich möchte mit Annika über einen Immobilienkauf sprechen." } },
+  { name: "Lukas Weber", role: { en: "Lettings & Property Manager", de: "Mietverwaltung & Objektbetreuung" }, photo: "assets/img/team/agent3.jpg", wa: { en: "Hello, I'd like to speak with Lukas about renting a property.", de: "Hallo, ich möchte mit Lukas über eine Mietimmobilie sprechen." } }
 ];
 
 function renderAgents() {
@@ -318,18 +348,30 @@ function renderAgents() {
     <div class="agent-card reveal">
       <div class="agent-photo"><img src="${a.photo}" alt="${a.name}" loading="lazy"></div>
       <h3>${a.name}</h3>
-      <p class="agent-role">${a.role}</p>
-      <a class="btn btn-sm btn-outline" href="${waLink(a.wa)}" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      <p class="agent-role">${L(a.role)}</p>
+      <a class="btn btn-sm btn-outline" href="${waLink(L(a.wa))}" target="_blank" rel="noopener">${t("team_chat")}</a>
     </div>`).join("");
   initReveal();
 }
 
 /* ---------- Testimonials ---------- */
 const TESTIMONIALS = [
-  { name: "Mrs. Adebisi O.", role: "Homeowner, Lekki", photo: "assets/img/team/t1.jpg", text: "Nestora found us a home in two weeks after we had searched for over a year on our own. The paperwork was handled end to end. Truly professional." },
-  { name: "Ifeanyi N.", role: "Tenant, Victoria Island", photo: "assets/img/team/t2.jpg", text: "The serviced apartment matched the listing exactly. No surprises, no hidden fees, and the viewing was arranged the same day I called." },
-  { name: "Barr. Funke A.", role: "Investor, Ikoyi", photo: "assets/img/team/t3.jpg", text: "Their valuation advice saved me from a bad purchase. I have since bought two investment properties through them." },
-  { name: "Engr. Emeka U.", role: "Homeowner, Ajah", photo: "assets/img/team/t4.jpg", text: "From inspection to keys in one month. They explained every charge upfront and followed up even after we moved in." }
+  { name: "Familie Hoffmann", photo: "assets/img/team/t1.jpg",
+    role: { en: "Homeowner, Munich", de: "Eigenheimbesitzer, München" },
+    text: { en: "Nestora found us a home in two weeks after we had searched for over a year on our own. The paperwork was handled end to end. Truly professional.",
+            de: "Nestora hat in zwei Wochen ein Zuhause für uns gefunden, nachdem wir über ein Jahr allein gesucht hatten. Die Formalitäten wurden komplett übernommen. Wirklich professionell." } },
+  { name: "Jonas K.", photo: "assets/img/team/t2.jpg",
+    role: { en: "Tenant, Berlin", de: "Mieter, Berlin" },
+    text: { en: "The furnished apartment matched the listing exactly. No surprises, no hidden fees, and the viewing was arranged the same day I called.",
+            de: "Die Wohnung entsprach exakt dem Angebot. Keine Überraschungen, keine versteckten Kosten – und die Besichtigung fand am selben Tag statt." } },
+  { name: "Funke A.", photo: "assets/img/team/t3.jpg",
+    role: { en: "Investor, Frankfurt", de: "Investorin, Frankfurt" },
+    text: { en: "Their valuation advice saved me from a bad purchase. I have since bought two investment properties through them.",
+            de: "Ihre Bewertung hat mich vor einem Fehlkauf bewahrt. Seitdem habe ich zwei Anlageobjekte über sie gekauft." } },
+  { name: "Erik U.", photo: "assets/img/team/t4.jpg",
+    role: { en: "Homeowner, Stuttgart", de: "Eigenheimbesitzer, Stuttgart" },
+    text: { en: "From viewing to keys in one month. They explained every charge upfront and followed up even after we moved in.",
+            de: "Von der Besichtigung bis zu den Schlüsseln in einem Monat. Jede Position vorab erklärt – und auch nach dem Einzug erreichbar." } }
 ];
 
 function initTestimonials() {
@@ -337,12 +379,12 @@ function initTestimonials() {
   const dots = document.getElementById("testimonial-dots");
   if (!track) return;
 
-  track.innerHTML = TESTIMONIALS.map(t => `
+  track.innerHTML = TESTIMONIALS.map(x => `
     <figure class="testimonial">
-      <blockquote>&ldquo;${t.text}&rdquo;</blockquote>
+      <blockquote>&ldquo;${L(x.text)}&rdquo;</blockquote>
       <figcaption>
-        <img src="${t.photo}" alt="${t.name}" loading="lazy">
-        <div><strong>${t.name}</strong><span>${t.role}</span></div>
+        <img src="${x.photo}" alt="${x.name}" loading="lazy">
+        <div><strong>${x.name}</strong><span>${L(x.role)}</span></div>
       </figcaption>
     </figure>`).join("");
 
@@ -366,13 +408,14 @@ function initContactForm() {
   form.addEventListener("submit", e => {
     e.preventDefault();
     const d = new FormData(form);
-    const msg =
-      `Hello ${CONFIG.brand}, I'd like to make an enquiry.\n\n` +
-      `Name: ${d.get("name")}\n` +
-      `Email: ${d.get("email")}\n` +
-      `Phone: ${d.get("phone")}\n` +
-      `Interest: ${d.get("interest")}\n\n` +
-      `Message:\n${d.get("message")}`;
+    const msg = t("cf_msg", {
+      brand: CONFIG.brand,
+      name: d.get("name"),
+      email: d.get("email"),
+      phone: d.get("phone"),
+      interest: d.get("interest"),
+      message: d.get("message")
+    });
     window.open(waLink(msg), "_blank");
     form.reset();
     const ok = document.getElementById("form-ok");
