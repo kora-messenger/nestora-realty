@@ -528,6 +528,8 @@ function initFilters() {
     apply();
   }));
   if (radiusSel) radiusSel.addEventListener("change", () => { window._shown = 12; apply(); });
+  const sortSel = document.getElementById("f-sort");
+  if (sortSel) sortSel.addEventListener("change", () => { window._shown = 12; apply(); });
   document.getElementById("filter-clear")?.addEventListener("click", clearFilters);
 
   /* ---- smart empty state for keyword search ---- */
