@@ -35,11 +35,12 @@ function renderDetail() {
     priceEl.innerHTML = formatPrice(p.price, cur) + `<span class="d-note">${t("d_rent")}</span>`;
     subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) });
     const total = p.price + (p.utilities || 0) + (p.heating || 0);
+    const multi = (p.utilities || 0) + (p.heating || 0) > 0;
     costsEl.innerHTML = `
-      <div class="cost-row"><span>${t("d_utilities")}</span><span>+ ${formatPrice(p.utilities || 0, cur)}</span></div>
-      <div class="cost-row"><span>${t("d_heating")}</span><span>+ ${formatPrice(p.heating || 0, cur)}</span></div>
-      <div class="cost-row total"><span>${t("d_total")}</span><span>${formatPrice(total, cur)}</span></div>
-      <div class="cost-row"><span>${t("d_deposit")}</span><span>${formatPrice(p.deposit || 0, cur)}</span></div>`;
+      ${p.utilities ? `<div class="cost-row"><span>${t("d_utilities")}</span><span>+ ${formatPrice(p.utilities, cur)}</span></div>` : ""}
+      ${p.heating ? `<div class="cost-row"><span>${t("d_heating")}</span><span>+ ${formatPrice(p.heating, cur)}</span></div>` : ""}
+      ${multi ? `<div class="cost-row total"><span>${t("d_total")}</span><span>${formatPrice(total, cur)}</span></div>` : ""}
+      ${p.deposit ? `<div class="cost-row"><span>${t("d_deposit")}</span><span>${formatPrice(p.deposit, cur)}</span></div>` : ""}`;
   } else {
     priceEl.innerHTML = formatPrice(p.price, cur);
     subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm, cur) });
