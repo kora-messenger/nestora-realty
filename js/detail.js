@@ -53,7 +53,7 @@ function renderDetail() {
     [t("d_bedrooms"), String(p.beds)],
     [t("d_baths"), String(p.baths)],
     [t("d_area"), p.sqm.toLocaleString("en-US") + " m²"],
-    [t("d_year"), String(p.year)],
+    p.year ? [t("d_year"), String(p.year)] : null,
     p.energyClass ? [t("d_energy"), p.energyClass] : null,
     p.floor ? [t("d_floor"), p.floor] : null,
     [t("d_state"), L(p.state)],

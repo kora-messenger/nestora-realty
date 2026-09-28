@@ -19,6 +19,7 @@ const STATES = [
 ];
 
 const CITIES = [
+  {"de": "Krefeld", "en": "Krefeld", "state": "Nordrhein-Westfalen", "lat": 51.3383, "lng": 6.5853, "zip": "47800", "zipEnd": "47839"},
   {"de": "Stuttgart", "en": "Stuttgart", "state": "Baden-W\u00fcrttemberg", "lat": 48.7758, "lng": 9.1829, "zip": "70173", "zipEnd": "70197"},
   {"de": "Mannheim", "en": "Mannheim", "state": "Baden-W\u00fcrttemberg", "lat": 49.4875, "lng": 8.466, "zip": "68159", "zipEnd": "68309"},
   {"de": "Karlsruhe", "en": "Karlsruhe", "state": "Baden-W\u00fcrttemberg", "lat": 49.0069, "lng": 8.4037, "zip": "76131", "zipEnd": "76229"},
@@ -85,6 +86,7 @@ const CITIES = [
 ];
 
 const DISTRICTS = [
+  {"de": "Verberg", "en": "Verberg", "city": "Krefeld", "lat": 51.3257, "lng": 6.5851},
   {"de": "Bilk", "en": "Bilk", "city": "D\u00fcsseldorf", "lat": 51.2427, "lng": 6.7655},
   {"de": "Loschwitz", "en": "Loschwitz", "city": "Dresden", "lat": 51.0484, "lng": 13.7213},
   {"de": "Connewitz", "en": "Connewitz", "city": "Leipzig", "lat": 51.3387, "lng": 12.3821},
