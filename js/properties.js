@@ -26,7 +26,7 @@ const PROPERTIES = [
     id: 116,
     title: {"en": "Townhouse in the Heart of Düsseldorf", "de": "Townhouse im Herzen Düsseldorfs"},
     status: "sale", type: "duplex",
-    price: 620000,
+    price: 412000,
     fin: 2053,
     priceNote: "",
     location: {"en": "Stadtmitte, Düsseldorf", "de": "Stadtmitte, Düsseldorf"},
