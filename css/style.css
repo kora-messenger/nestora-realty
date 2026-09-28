@@ -454,6 +454,8 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; color: var(--n
 .ec-chip { border:1px solid var(--line); background:#fff; border-radius:8px; min-width:34px; padding:6px 8px; font-weight:700; cursor:pointer; color:var(--navy); }
 .ec-chip.on { border-color:var(--navy); background:var(--navy); color:#fff; }
 .feat-checks label { display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--navy); text-transform:none; letter-spacing:0; font-weight:600; margin:5px 0; cursor:pointer; }
+.feat-checks input[type="checkbox"] { width:18px; height:18px; min-width:18px; flex:0 0 18px; margin:0; accent-color:var(--navy); }
+.feat-checks span { text-align:left; }
 
 /* quick chips */
 .quick-chips { display:flex; gap:8px; margin:18px 0 6px; flex-wrap:wrap; }
