@@ -8,8 +8,8 @@ const CONFIG = {
   brand: "Nestora Realty",
   brandInitials: "NR",
   tagline: "Find a place you'll love to live",
-  phone: "+49 89 12345678",            // shown on the site
-  phoneHref: "+498912345678",          // used in tel: links
+  phone: "+1 580 258 6196",            // shown on the site
+  phoneHref: "+15802586196",          // used in tel: links
   telegram: "Mathias66991",             // Telegram username to receive enquiries
   email: "hallo@nestorarealty.de",
   address: { en: "Marienplatz 8, 80331 Munich, Germany", de: "Marienplatz 8, 80331 München, Deutschland" },
