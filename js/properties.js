@@ -1275,7 +1275,7 @@ const PROPERTIES = [
   {
     id: 65,
     title: {"en": "Maisonette Apartment in Old Villa District", "de": "Maisonette-Wohnung im Alten Villenviertel"},
-    status: "sale", type: "maisonette",
+    status: "sale", type: "duplex",
     price: 449000,
     priceNote: "",
     location: {"en": "Schwachhausen, Bremen", "de": "Schwachhausen, Bremen"},

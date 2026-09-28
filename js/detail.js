@@ -32,7 +32,7 @@ function renderDetail() {
   const costsEl = document.getElementById("d-costs");
   if (p.status === "rent") {
     priceEl.innerHTML = formatEuro(p.price) + `<span class="d-note">${t("d_rent")}</span>`;
-    subEl.innerHTML = t("per_m2", { p: formatEuro(Math.round(p.price / p.sqm)) });
+    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm) });
     const total = p.price + (p.utilities || 0) + (p.heating || 0);
     costsEl.innerHTML = `
       <div class="cost-row"><span>${t("d_utilities")}</span><span>+ ${formatEuro(p.utilities || 0)}</span></div>
@@ -41,7 +41,7 @@ function renderDetail() {
       <div class="cost-row"><span>${t("d_deposit")}</span><span>${formatEuro(p.deposit || 0)}</span></div>`;
   } else {
     priceEl.innerHTML = formatEuro(p.price);
-    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: formatEuro(Math.round(p.price / p.sqm)) });
+    subEl.innerHTML = t("d_price_m2") + ": " + t("per_m2", { p: fmtPm2(p.price / p.sqm) });
     costsEl.innerHTML = "";
   }
 

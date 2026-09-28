@@ -112,10 +112,15 @@ function initCounters() {
 }
 
 /* ---------- Property cards ---------- */
+function fmtPm2(v) {
+  const d = v >= 100 ? 0 : (v >= 20 ? 1 : 2);
+  return v.toLocaleString(LANG === "de" ? "de-DE" : "en-US", { minimumFractionDigits: 0, maximumFractionDigits: d }) + " \u20AC";
+}
+
 function cardHtml(p) {
   const price = formatEuro(p.price) + (p.priceNote ? `<span class="card-price-note">${t(p.priceNote)}</span>` : "");
   const badge = p.badge ? `<span class="card-badge badge-gold">${L(p.badge)}</span>` : "";
-  const pm2 = `<span class="card-pm2">${t("per_m2", { p: formatEuro(Math.round(p.price / p.sqm)) })}</span>`;
+  const pm2 = `<span class="card-pm2">${t("per_m2", { p: fmtPm2(p.price / p.sqm) })}</span>`;
   const ec = p.energyClass ? `<span class="ec ec-${p.energyClass.replace("+", "p")}">${p.energyClass}</span>` : "";
   const hearted = FAVS.has(p.id) ? " active" : "";
   return `
