@@ -77,15 +77,14 @@ function initNav() {
 
 /* ---------- Scroll reveal ---------- */
 function initReveal() {
-  const els = document.querySelectorAll(".reveal");
   if (!("IntersectionObserver" in window)) {
-    els.forEach(e => e.classList.add("visible"));
+    document.querySelectorAll(".reveal").forEach(e => e.classList.add("visible"));
     return;
   }
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); } });
+  window._revealIO = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); window._revealIO.unobserve(en.target); } });
   }, { threshold: 0.12 });
-  els.forEach(e => io.observe(e));
+  document.querySelectorAll(".reveal").forEach(e => window._revealIO.observe(e));
 }
 
 /* ---------- Animated counters ---------- */
@@ -172,6 +171,10 @@ function drawListings() {
     updateLoadMore(grid, items.length);
   }
   bindCards(grid);
+  grid.querySelectorAll(".reveal:not(.visible)").forEach(el => {
+    if (window._revealIO) window._revealIO.observe(el);
+    else el.classList.add("visible");
+  });
   grid.classList.add("visible");
 }
 
