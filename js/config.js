@@ -10,7 +10,7 @@ const CONFIG = {
   tagline: "Find a place you'll love to live",
   phone: "+49 89 12345678",            // shown on the site
   phoneHref: "+498912345678",          // used in tel: links
-  whatsapp: "498912345678",             // digits only, with country code
+  telegram: "Mathias66991",             // Telegram username to receive enquiries
   email: "hallo@nestorarealty.de",
   address: { en: "Marienplatz 8, 80331 Munich, Germany", de: "Marienplatz 8, 80331 München, Deutschland" },
   hours: "hours_value",
@@ -30,7 +30,7 @@ function formatEuro(n) {
   return "€" + new Intl.NumberFormat("en-US").format(n);
 }
 
-/* Build a WhatsApp chat link with a prefilled message */
-function waLink(message) {
-  return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(message);
+/* Build a Telegram chat link with a prefilled message */
+function tgLink(message) {
+  return "https://t.me/" + CONFIG.telegram + "?text=" + encodeURIComponent(message);
 }

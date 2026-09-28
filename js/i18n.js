@@ -62,7 +62,7 @@ const I18N = {
 
     cta_h2: "Ready to find your next home?",
     cta_p: "Tell us what you're looking for and we'll send matching listings within 24 hours.",
-    cta_chat: "Chat on WhatsApp", cta_browse: "Browse listings", cta_contact: "Contact us",
+    cta_chat: "Chat on Telegram", cta_browse: "Browse listings", cta_contact: "Contact us",
 
     ph_eyebrow: "Our Listings",
     ph_h1: "Properties for sale & rent",
@@ -75,6 +75,7 @@ const I18N = {
     sortby: "Sort by", sort_new: "Newest", sort_asc: "Price: low to high",
     sort_desc: "Price: high to low", sort_beds: "Most bedrooms",
     results: "{n} properties found", results_one: "1 property found",
+    load_more: "Show more",
     empty_h: "No matches found",
     empty_p: "Try widening your price range or clearing filters.",
     empty_clear: "Clear filters",
@@ -85,7 +86,7 @@ const I18N = {
     for_sale: "For Sale", for_rent: "For Rent",
     beds: "Beds", baths: "Baths", view_details: "View details",
     m_beds: "Bedrooms", m_baths: "Bathrooms", m_sqm: "Square metres", m_type: "Property type",
-    m_viewing: "Request viewing on WhatsApp", m_call: "Call agent",
+    m_viewing: "Request viewing via Telegram", m_call: "Call agent",
     m_msg: "Hello {brand}, I'm interested in \"{title}\" ({price}) in {location}. Please share more details and viewing times. Thank you.",
     per_month: "per month",
 
@@ -106,15 +107,15 @@ const I18N = {
     ci_phone: "Phone", ci_email: "Email", ci_office: "Office", ci_hours: "Opening hours",
     hours_value: "Mon – Fri · 9:00am – 6:00pm",
     cf_h3: "Send an enquiry",
-    cf_p: "Fill the form and we'll continue on WhatsApp — the fastest way to reach our team.",
+    cf_p: "Fill the form and we'll continue on Telegram — the fastest way to reach our team.",
     cf_name: "Full name *", cf_name_ph: "Your name",
     cf_phone: "Phone *", cf_email: "Email", cf_interest: "I'm interested in",
     int1: "Buying a property", int2: "Renting a property", int3: "Selling my property",
     int4: "Property management", int5: "General enquiry",
     cf_message: "Message *", cf_msg_ph: "Tell us what you're looking for — budget, area, size…",
     cf_send: "Send enquiry",
-    cf_note: "Your enquiry opens WhatsApp with your message pre-filled. We typically respond within a few hours during business hours.",
-    cf_ok: "✓ Message prepared! If WhatsApp didn't open, call or email us directly.",
+    cf_note: "Your enquiry opens Telegram with your message pre-filled. We typically respond within a few hours during business hours.",
+    cf_ok: "✓ Message prepared! If Telegram didn't open, call or email us directly.",
     cf_msg: "Hello {brand}, I'd like to make an enquiry.\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nInterest: {interest}\n\nMessage:\n{message}",
 
     faq_eyebrow: "Common Questions", faq_h2: "Frequently asked questions",
@@ -140,7 +141,7 @@ const I18N = {
     ab2_h: "Local expertise", ab2_p: "Deep knowledge of Germany's neighbourhoods, prices and paperwork.",
     ab3_h: "Long-term relationships", ab3_p: "Most of our clients come from referrals — we intend to keep it that way.",
     team_eyebrow: "Our Team", team_h2: "Meet the people behind the deals",
-    team_chat: "Chat on WhatsApp",
+    team_chat: "Chat on Telegram",
     proc_eyebrow: "Our Process", proc_h2: "How we work with you",
     pr1_h: "1. Listen", pr1_p: "We start with your budget, lifestyle and timeline — not our inventory.",
     pr2_h: "2. Curate & verify", pr2_p: "We shortlist genuine matches, inspect them and check the documents before you visit.",
@@ -153,10 +154,10 @@ const I18N = {
     e404_p: "The page you're looking for doesn't exist or is no longer available.",
     e404_home: "Back to home", e404_browse: "Browse properties",
 
-    wa_general: "Hello, I'd like to make an enquiry about a property.",
-    ci_chat: "Chat on WhatsApp",
-    wa_cta: "Hello, I'm looking for a property. Please send me matching listings.",
-    wa_req: "Hello, I couldn't find a property on your site. Here's what I'm looking for: "
+    tg_general: "Hello, I'd like to make an enquiry about a property.",
+    ci_chat: "Chat on Telegram",
+    tg_cta: "Hello, I'm looking for a property. Please send me matching listings.",
+    tg_req: "Hello, I couldn't find a property on your site. Here's what I'm looking for: "
   },
 
   /* ---------------- GERMAN ---------------- */
@@ -211,7 +212,7 @@ const I18N = {
 
     cta_h2: "Bereit für Ihr neues Zuhause?",
     cta_p: "Sagen Sie uns, wonach Sie suchen – wir senden Ihnen passende Objekte innerhalb von 24 Stunden.",
-    cta_chat: "Per WhatsApp schreiben", cta_browse: "Angebote ansehen", cta_contact: "Kontakt aufnehmen",
+    cta_chat: "Per Telegram schreiben", cta_browse: "Angebote ansehen", cta_contact: "Kontakt aufnehmen",
 
     ph_eyebrow: "Unsere Angebote",
     ph_h1: "Immobilien zum Kaufen & Mieten",
@@ -224,6 +225,7 @@ const I18N = {
     sortby: "Sortieren", sort_new: "Neueste", sort_asc: "Preis: aufsteigend",
     sort_desc: "Preis: absteigend", sort_beds: "Meiste Schlafzimmer",
     results: "{n} Objekte gefunden", results_one: "1 Objekt gefunden",
+    load_more: "Weitere anzeigen",
     empty_h: "Keine Treffer",
     empty_p: "Erweitern Sie Ihre Suche oder setzen Sie die Filter zurück.",
     empty_clear: "Filter zurücksetzen",
@@ -234,7 +236,7 @@ const I18N = {
     for_sale: "Zu verkaufen", for_rent: "Zur Miete",
     beds: "Zi.", baths: "Bäder", view_details: "Details ansehen",
     m_beds: "Schlafzimmer", m_baths: "Badezimmer", m_sqm: "Quadratmeter", m_type: "Objekttyp",
-    m_viewing: "Besichtigung per WhatsApp anfragen", m_call: "Makler anrufen",
+    m_viewing: "Besichtigung per Telegram anfragen", m_call: "Makler anrufen",
     m_msg: "Hallo {brand}, ich interessiere mich für \"{title}\" ({price}) in {location}. Bitte senden Sie mir weitere Details und Besichtigungstermine. Vielen Dank.",
     per_month: "pro Monat",
 
@@ -255,15 +257,15 @@ const I18N = {
     ci_phone: "Telefon", ci_email: "E-Mail", ci_office: "Büro", ci_hours: "Öffnungszeiten",
     hours_value: "Mo – Fr · 9:00 – 18:00 Uhr",
     cf_h3: "Anfrage senden",
-    cf_p: "Füllen Sie das Formular aus – wir melden uns umgehend per WhatsApp.",
+    cf_p: "Füllen Sie das Formular aus – wir melden uns umgehend per Telegram.",
     cf_name: "Vollständiger Name *", cf_name_ph: "Ihr Name",
     cf_phone: "Telefon *", cf_email: "E-Mail", cf_interest: "Ich interessiere mich für",
     int1: "Immobilie kaufen", int2: "Immobilie mieten", int3: "Meine Immobilie verkaufen",
     int4: "Immobilienverwaltung", int5: "Allgemeine Anfrage",
     cf_message: "Nachricht *", cf_msg_ph: "Wonach suchen Sie – Budget, Lage, Größe…",
     cf_send: "Anfrage senden",
-    cf_note: "Ihre Anfrage öffnet WhatsApp mit vorbereiteter Nachricht. In der Regel antworten wir innerhalb weniger Stunden.",
-    cf_ok: "✓ Nachricht vorbereitet! Falls WhatsApp sich nicht geöffnet hat, rufen Sie uns an oder schreiben Sie uns.",
+    cf_note: "Ihre Anfrage öffnet Telegram mit vorbereiteter Nachricht. In der Regel antworten wir innerhalb weniger Stunden.",
+    cf_ok: "✓ Nachricht vorbereitet! Falls Telegram sich nicht geöffnet hat, rufen Sie uns an oder schreiben Sie uns.",
     cf_msg: "Hallo {brand}, ich möchte eine Anfrage stellen.\n\nName: {name}\nE-Mail: {email}\nTelefon: {phone}\nInteresse: {interest}\n\nNachricht:\n{message}",
 
     faq_eyebrow: "Häufige Fragen", faq_h2: "Häufig gestellte Fragen",
@@ -289,7 +291,7 @@ const I18N = {
     ab2_h: "Lokale Expertise", ab2_p: "Tiefes Wissen über Lagen, Preise und Formalitäten in Deutschland.",
     ab3_h: "Langfristige Beziehungen", ab3_p: "Die meisten Kunden kommen durch Empfehlungen – so soll es bleiben.",
     team_eyebrow: "Unser Team", team_h2: "Die Menschen hinter den Deals",
-    team_chat: "Per WhatsApp schreiben",
+    team_chat: "Per Telegram schreiben",
     proc_eyebrow: "Unser Ablauf", proc_h2: "So arbeiten wir mit Ihnen",
     pr1_h: "1. Zuhören", pr1_p: "Wir beginnen mit Budget, Lebenssituation und Zeitleiste – nicht mit unserem Bestand.",
     pr2_h: "2. Auswählen & prüfen", pr2_p: "Wir erstellen eine echte Kurzliste, besichtigen die Objekte und prüfen die Unterlagen, bevor Sie anreisen.",
@@ -302,10 +304,10 @@ const I18N = {
     e404_p: "Die gesuchte Seite existiert nicht oder ist nicht mehr verfügbar.",
     e404_home: "Zur Startseite", e404_browse: "Immobilien ansehen",
 
-    wa_general: "Hallo, ich möchte eine Anfrage zu einer Immobilie stellen.",
-    ci_chat: "Per WhatsApp schreiben",
-    wa_cta: "Hallo, ich suche eine Immobilie. Bitte senden Sie mir passende Angebote.",
-    wa_req: "Hallo, auf Ihrer Website habe ich nichts Passendes gefunden. Ich suche: "
+    tg_general: "Hallo, ich möchte eine Anfrage zu einer Immobilie stellen.",
+    ci_chat: "Per Telegram schreiben",
+    tg_cta: "Hallo, ich suche eine Immobilie. Bitte senden Sie mir passende Angebote.",
+    tg_req: "Hallo, auf Ihrer Website habe ich nichts Passendes gefunden. Ich suche: "
   }
 };
 

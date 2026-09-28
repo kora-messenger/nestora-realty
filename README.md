@@ -4,6 +4,9 @@ A professional, fully static real estate website for the German market (no build
 
 **Live:** https://kora-messenger.github.io/nestora-realty/
 
+- **61 bilingual listings** across German cities and historic Fachwerk towns, each with a full photo gallery (exterior + interiors). Photos live in `assets/img/props/<listing-id>/`. Listings page paginates 12 at a time ("Show more").
+- **All enquiries go to Telegram** (`t.me/Mathias66991`, configured in `js/config.js` as `telegram`). The float button, contact form, property detail modal and team cards all open a Telegram chat with a prefilled message.
+
 ## Pages
 - `index.html` — hero with property search, featured listings, services, why-us, testimonials, CTA
 - `properties.html` — full listings with filters (keyword, buy/rent, type, location, min beds, price range) + sorting and a photo-gallery detail modal
@@ -13,7 +16,7 @@ A professional, fully static real estate website for the German market (no build
 ## Customizing
 
 ### 1. Business details — `js/config.js`
-Brand name, phone, WhatsApp number, email, address, hours and social links. Everything on the site reads from this one file. When you bump any cached asset, increase the `?v=` version in the HTML `<link>`/`<script>` tags.
+Brand name, phone, Telegram username, email, address, hours and social links. Everything on the site reads from this one file. When you bump any cached asset, increase the `?v=` version in the HTML `<link>`/`<script>` tags.
 
 ### 2. Listings — `js/properties.js`
 German listings (Munich, Berlin, Hamburg, Frankfurt, Düsseldorf, Cologne, Stuttgart, Leipzig) priced in €. Text fields that differ per language are `{ en, de }` objects: `title, description, features, location, badge`. `type` is a key (`duplex, detached, apartment, terraced, penthouse, bungalow`); rent listings use `priceNote: "per_month"`. Add or edit entries and both the home page featured section and the listings page update automatically.

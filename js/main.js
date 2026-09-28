@@ -52,9 +52,9 @@ function hydrateConfig() {
 
   document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
-  // Generic WhatsApp buttons: value is an i18n key
-  document.querySelectorAll("[data-wa]").forEach(a => {
-    a.href = waLink(t(a.dataset.wa || "wa_general"));
+  // Generic Telegram buttons: value is an i18n key
+  document.querySelectorAll("[data-tg]").forEach(a => {
+    a.href = tgLink(t(a.dataset.tg || "tg_general"));
   });
 }
 
@@ -139,7 +139,7 @@ function cardHtml(p) {
 
 function renderFeatured() {
   const grid = document.getElementById("featured-grid");
-  const items = PROPERTIES.filter(p => p.featured).slice(0, 6);
+  const items = PROPERTIES.filter(p => p.featured).slice(0, 9);
   grid.innerHTML = items.map(cardHtml).join("");
   bindCards(grid);
   initReveal();
@@ -156,6 +156,8 @@ function drawListings() {
   const items = window._filtered;
   const count = document.getElementById("result-count");
   if (count) count.textContent = t(items.length === 1 ? "results_one" : "results", { n: items.length });
+  const PAGE_SIZE = 12;
+  window._shown = window._shown || PAGE_SIZE;
   if (!items.length) {
     grid.innerHTML = `<div class="empty-state">
       <h3>${t("empty_h")}</h3>
@@ -163,11 +165,40 @@ function drawListings() {
       <button class="btn btn-outline" id="clear-empty">${t("empty_clear")}</button></div>`;
     const c = document.getElementById("clear-empty");
     if (c) c.addEventListener("click", clearFilters);
+    removeLoadMore(grid);
   } else {
-    grid.innerHTML = items.map(cardHtml).join("");
+    const visible = items.slice(0, window._shown);
+    grid.innerHTML = visible.map(cardHtml).join("");
+    updateLoadMore(grid, items.length);
   }
   bindCards(grid);
   grid.classList.add("visible");
+}
+
+
+function removeLoadMore(grid) {
+  const b = document.getElementById("load-more");
+  if (b) b.remove();
+}
+
+function updateLoadMore(grid, total) {
+  let btn = document.getElementById("load-more");
+  if (window._shown < total) {
+    if (!btn) {
+      btn = document.createElement("button");
+      btn.id = "load-more";
+      btn.className = "btn btn-outline";
+      btn.style.margin = "34px auto 10px";
+      btn.style.display = "block";
+      btn.addEventListener("click", () => {
+        window._shown += 12;
+        drawListings();
+        btn.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      grid.after(btn);
+    }
+    btn.textContent = t("load_more") + " (" + Math.min(window._shown, total) + " / " + total + ")";
+  } else if (btn) btn.remove();
 }
 
 /* ---------- Filters (properties page) ---------- */
@@ -211,7 +242,10 @@ function initFilters() {
     drawListings();
   };
 
-  document.querySelectorAll(".filters input, .filters select").forEach(el => el.addEventListener("input", apply));
+  document.querySelectorAll(".filters input, .filters select").forEach(el => el.addEventListener("input", () => {
+    window._shown = 12;
+    apply();
+  }));
   document.getElementById("filter-clear")?.addEventListener("click", clearFilters);
 
   // hero search on index page
@@ -242,6 +276,7 @@ function initFilters() {
 }
 
 function clearFilters() {
+  window._shown = 12;
   document.querySelectorAll(".filters input").forEach(el => { el.value = ""; });
   document.querySelectorAll(".filters select").forEach(el => { el.value = "all"; });
   const sort = document.getElementById("f-sort"); if (sort) sort.value = "default";
@@ -295,8 +330,8 @@ function openModal(id) {
     price: formatEuro(p.price) + (p.priceNote ? " " + t(p.priceNote) : ""),
     location: L(p.location)
   });
-  modal.querySelector(".m-wa").href = waLink(waMsg);
-  modal.querySelector(".m-wa").textContent = t("m_viewing");
+  modal.querySelector(".m-tg").href = tgLink(waMsg);
+  modal.querySelector(".m-tg").textContent = t("m_viewing");
   modal.querySelector(".m-call").textContent = t("m_call");
 
   galImages = p.gallery && p.gallery.length ? p.gallery : [p.image];
@@ -349,7 +384,7 @@ function renderAgents() {
       <div class="agent-photo"><img src="${a.photo}" alt="${a.name}" loading="lazy"></div>
       <h3>${a.name}</h3>
       <p class="agent-role">${L(a.role)}</p>
-      <a class="btn btn-sm btn-outline" href="${waLink(L(a.wa))}" target="_blank" rel="noopener">${t("team_chat")}</a>
+      <a class="btn btn-sm btn-outline" href="${tgLink(L(a.wa))}" target="_blank" rel="noopener">${t("team_chat")}</a>
     </div>`).join("");
   initReveal();
 }
@@ -401,7 +436,7 @@ function initTestimonials() {
   auto();
 }
 
-/* ---------- Contact form -> WhatsApp ---------- */
+/* ---------- Contact form -> Telegram ---------- */
 function initContactForm() {
   const form = document.getElementById("contact-form");
   if (!form) return;
@@ -416,7 +451,7 @@ function initContactForm() {
       interest: d.get("interest"),
       message: d.get("message")
     });
-    window.open(waLink(msg), "_blank");
+    window.open(tgLink(msg), "_blank");
     form.reset();
     const ok = document.getElementById("form-ok");
     if (ok) { ok.classList.add("show"); setTimeout(() => ok.classList.remove("show"), 6000); }

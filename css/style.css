@@ -406,12 +406,12 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; color: var(--n
 #to-top.show { opacity: 1; pointer-events: auto; }
 #to-top:hover { background: var(--gold); color: var(--navy-deep); }
 
-.whatsapp-float {
+.telegram-float {
   position: fixed; bottom: 26px; left: 26px; z-index: 60; width: 54px; height: 54px; border-radius: 50%;
-  background: #25D366; display: flex; align-items: center; justify-content: center;
+  background: #2AABEE; display: flex; align-items: center; justify-content: center;
   box-shadow: 0 10px 30px rgba(37,211,102,0.45); transition: transform 0.25s;
 }
-.whatsapp-float:hover { transform: scale(1.09); }
+.telegram-float:hover { transform: scale(1.09); }
 
 /* ---------- Language switch ---------- */
 .lang-switch {
