@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body data-page="properties">
 
@@ -49,6 +49,12 @@
   </section>
 
   <section class="container">
+    <div class="ai-search-wrap reveal">
+      <input type="text" id="ai-search" autocomplete="off" data-i18n-ph="ai_ph" placeholder="Describe your home — e.g. 3 rooms, balcony, Munich under 1,200&#8364;">
+      <button type="button" class="btn btn-gold" id="ai-go" data-i18n="nav_browse">Search</button>
+      <div id="ai-applied" class="ai-applied" hidden></div>
+    </div>
+
     <form class="filters" onsubmit="return false;">
       <div>
         <label for="f-search" data-i18n="f_keyword">Keyword</label>
@@ -66,9 +72,17 @@
         <label for="f-type" data-i18n="f_type">Type</label>
         <select id="f-type"><option value="all">Any</option></select>
       </div>
-      <div>
-        <label for="f-location" data-i18n="f_location">Location</label>
-        <select id="f-location"><option value="all">Anywhere</option></select>
+      <div class="loc-wrap">
+        <label for="f-locq" data-i18n="f_location">Location</label>
+        <input type="text" id="f-locq" autocomplete="off" data-i18n-ph="loc_ph" placeholder="City, district, state or ZIP…">
+        <div id="loc-drop" class="loc-drop" hidden></div>
+        <select id="f-radius" class="radius-sel" hidden>
+          <option value="0" data-i18n="f_any">Anywhere in place</option>
+          <option value="5">5 km</option>
+          <option value="15">15 km</option>
+          <option value="30">30 km</option>
+          <option value="50">50 km</option>
+        </select>
       </div>
       <div>
         <label for="f-beds" data-i18n="f_minbeds">Min bedrooms</label>
@@ -80,18 +94,93 @@
           <option value="5">5+</option>
         </select>
       </div>
-      <div class="filter-clear">
-        <button type="button" class="btn btn-sm btn-outline" id="filter-clear" style="width:100%;" data-i18n="f_clear">Clear</button>
-      </div>
       <div>
-        <label for="f-min" data-i18n="f_minprice">Min price (€)</label>
+        <label for="f-min" data-i18n="f_minprice">Min price (&#8364;)</label>
         <input type="number" id="f-min" placeholder="e.g. 500,000" min="0">
       </div>
       <div>
-        <label for="f-max" data-i18n="f_maxprice">Max price (€)</label>
+        <label for="f-max" data-i18n="f_maxprice">Max price (&#8364;)</label>
         <input type="number" id="f-max" placeholder="e.g. 5,000,000" min="0">
       </div>
+      <div class="filter-clear">
+        <button type="button" class="btn btn-sm btn-outline" id="adv-toggle" style="width:100%;" data-i18n="adv_filters">More filters</button>
+      </div>
+      <div class="filter-clear">
+        <button type="button" class="btn btn-sm btn-outline" id="filter-clear" style="width:100%;" data-i18n="f_clear">Clear</button>
+      </div>
     </form>
+
+    <div id="adv-panel" class="adv-panel" hidden>
+      <div>
+        <label data-i18n="f_area">Living area (m&#178;)</label>
+        <div style="display:flex; gap:8px;">
+          <input type="number" id="f-amin" placeholder="min" min="0">
+          <input type="number" id="f-amax" placeholder="max" min="0">
+        </div>
+      </div>
+      <div>
+        <label data-i18n="f_rooms">Rooms</label>
+        <div style="display:flex; gap:8px;">
+          <select id="f-rmin">
+            <option value="0" data-i18n="rooms_any">Any</option>
+            <option value="1" data-i18n="rooms_1">1+</option>
+            <option value="2" data-i18n="rooms_2">2+</option>
+            <option value="3" data-i18n="rooms_3">3+</option>
+            <option value="4" data-i18n="rooms_4">4+</option>
+            <option value="5" data-i18n="rooms_5">5+</option>
+          </select>
+          <select id="f-rmax">
+            <option value="0" data-i18n="rooms_any">Any</option>
+            <option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="f-year" data-i18n="f_year">Built from</label>
+        <select id="f-year">
+          <option value="0" data-i18n="year_any">Any</option>
+          <option value="1950" data-i18n="year_1950">1950+</option>
+          <option value="1970" data-i18n="year_1970">1970+</option>
+          <option value="1990" data-i18n="year_1990">1990+</option>
+          <option value="2000" data-i18n="year_2000">2000+</option>
+          <option value="2010" data-i18n="year_2010">2010+</option>
+          <option value="2020" data-i18n="year_2020">2020+</option>
+        </select>
+      </div>
+      <div>
+        <label data-i18n="f_energy">Energy class</label>
+        <div id="f-energy" class="energy-chips">
+          <button type="button" class="ec-chip ecA+">A+</button>
+          <button type="button" class="ec-chip ecA">A</button>
+          <button type="button" class="ec-chip ecB">B</button>
+          <button type="button" class="ec-chip ecC">C</button>
+          <button type="button" class="ec-chip ecD">D</button>
+          <button type="button" class="ec-chip ecE">E</button>
+          <button type="button" class="ec-chip ecF">F</button>
+          <button type="button" class="ec-chip ecG">G</button>
+        </div>
+      </div>
+      <div>
+        <label data-i18n="f_features">Features</label>
+        <div id="f-feats" class="feat-checks">
+          <label><input type="checkbox" value="balcony"> <span data-i18n="feat_balcony">Balcony / terrace</span></label>
+          <label><input type="checkbox" value="garden"> <span data-i18n="feat_garden">Garden</span></label>
+          <label><input type="checkbox" value="elevator"> <span data-i18n="feat_elevator">Elevator</span></label>
+          <label><input type="checkbox" value="kitchen"> <span data-i18n="feat_kitchen">Fitted kitchen</span></label>
+          <label><input type="checkbox" value="garage"> <span data-i18n="feat_garage">Garage / parking</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-chips" id="quick-chips">
+      <button type="button" class="qchip" data-qfeat="balcony" data-i18n="chip_balcony">Balcony</button>
+      <button type="button" class="qchip" data-qfeat="garden" data-i18n="chip_garden">Garden</button>
+      <button type="button" class="qchip" data-qfeat="elevator" data-i18n="chip_elevator">Elevator</button>
+      <button type="button" class="qchip" id="chip-3plus" data-i18n="chip_3plus">3+ rooms</button>
+      <button type="button" class="qchip" id="chip-favs" data-i18n="chip_favs">Favorites</button>
+    </div>
 
     <div class="result-bar">
       <span id="result-count">Loading…</span>
@@ -106,7 +195,7 @@
       </div>
     </div>
 
-    <div class="grid-cards" id="listings-grid"></div>
+        <div class="grid-cards" id="listings-grid"></div>
   </section>
 
   <section class="section-tight">
@@ -179,39 +268,10 @@
 
   <button id="to-top" aria-label="Back to top">&#8593;</button>
 
-  <div class="modal-backdrop" id="property-modal" role="dialog" aria-modal="true">
-    <div class="modal">
-      <button class="modal-close" aria-label="Close">&times;</button>
-      <div class="modal-grid">
-        <div>
-          <div class="gal-main">
-            <img src="" alt="Property photo">
-            <button class="gal-btn gal-prev" aria-label="Previous photo">&#8249;</button>
-            <button class="gal-btn gal-next" aria-label="Next photo">&#8250;</button>
-            <span class="gal-count">1 / 1</span>
-          </div>
-          <div id="gal-thumbs"></div>
-        </div>
-        <div class="m-body">
-          <span class="m-status sale">For Sale</span>
-          <h3 class="m-title">Property title</h3>
-          <p class="m-location">Location</p>
-          <div class="m-price">Price</div>
-          <div class="m-specs"></div>
-          <p class="m-desc">Description</p>
-          <ul class="m-features"></ul>
-          <div class="m-actions">
-            <a class="btn btn-gold m-tg" target="_blank" rel="noopener">Request viewing via Telegram</a>
-            <a class="btn btn-outline m-call" href="#" data-tel>Call agent</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="js/i18n.js?v=4"></script>
-  <script src="js/config.js?v=4"></script>
-  <script src="js/properties.js?v=4"></script>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/i18n.js?v=5"></script>
+  <script src="js/config.js?v=5"></script>
+  <script src="js/properties.js?v=5"></script>
+  <script src="js/locations.js?v=5"></script>
+  <script src="js/main.js?v=5"></script>
 </body>
 </html>

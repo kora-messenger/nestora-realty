@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("agent-cards")) renderAgents();
 
   initTestimonials();
-  initModal();
   initContactForm();
   initBackToTop();
 });
@@ -26,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* Re-render dynamic parts when the language changes */
 function refreshDynamic() {
   hydrateConfig();
+  if (document.querySelector(".detail-wrap") && typeof renderDetail === "function") renderDetail();
   if (document.getElementById("featured-grid")) renderFeatured();
   if (document.getElementById("listings-grid")) { renderListings(); initFilters(); }
   if (document.getElementById("agent-cards")) renderAgents();
@@ -115,25 +115,63 @@ function initCounters() {
 function cardHtml(p) {
   const price = formatEuro(p.price) + (p.priceNote ? `<span class="card-price-note">${t(p.priceNote)}</span>` : "");
   const badge = p.badge ? `<span class="card-badge badge-gold">${L(p.badge)}</span>` : "";
+  const pm2 = `<span class="card-pm2">${t("per_m2", { p: formatEuro(Math.round(p.price / p.sqm)) })}</span>`;
+  const ec = p.energyClass ? `<span class="ec ec-${p.energyClass.replace("+", "p")}">${p.energyClass}</span>` : "";
+  const hearted = FAVS.has(p.id) ? " active" : "";
   return `
   <article class="property-card reveal" data-id="${p.id}">
+    <button class="fav-btn${hearted}" data-fav="${p.id}" aria-label="Save" title="${t("d_fav")}">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="${hearted ? "#E5484D" : "rgba(255,255,255,.9)"}" stroke="rgba(20,30,45,.55)" stroke-width="1.5"><path d="M12 21s-7.5-4.9-9.7-9.2C.6 8.6 2.4 5 5.9 5c2 0 3.4 1.1 4.1 2.4C10.7 6.1 12.1 5 14.1 5c3.5 0 5.3 3.6 3.6 6.8C19.5 16.1 12 21 12 21z"/></svg>
+    </button>
     <div class="card-media">
       <img src="${p.image}" alt="${L(p.title)}" loading="lazy">
       <span class="card-status ${p.status}">${p.status === "sale" ? t("for_sale") : t("for_rent")}</span>
+      ${ec}
       ${badge}
     </div>
     <div class="card-body">
-      <div class="card-price">${price}</div>
+      <div class="card-price">${price}${pm2}</div>
       <h3 class="card-title">${L(p.title)}</h3>
       <p class="card-location"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${L(p.location)}</p>
       <div class="card-specs">
         <span><strong>${p.beds}</strong> ${t("beds")}</span>
         <span><strong>${p.baths}</strong> ${t("baths")}</span>
-        <span><strong>${p.sqm.toLocaleString("en-US")}</strong> m²</span>
+        <span><strong>${p.sqm.toLocaleString("en-US")}</strong> m&#178;</span>
       </div>
     </div>
     <button class="card-view" data-view="${p.id}">${t("view_details")} <span aria-hidden="true">&rarr;</span></button>
   </article>`;
+}
+
+/* ---------- Favorites (localStorage, no login) ---------- */
+function favsLoad() { try { return new Set(JSON.parse(localStorage.getItem("nestora_favs") || "[]")); } catch (e) { return new Set(); } }
+function favsSave() { localStorage.setItem("nestora_favs", JSON.stringify([...FAVS])); }
+const FAVS = favsLoad();
+
+function updateFavChip() {
+  const chip = document.getElementById("chip-favs");
+  if (!chip) return;
+  chip.innerHTML = t("chip_favs") + (FAVS.size ? ` <span class="chip-count">${FAVS.size}</span>` : "");
+}
+
+function bindCards(scope) {
+  scope.querySelectorAll(".property-card").forEach(card => {
+    card.addEventListener("click", () => {
+      window.location.href = "property.html?id=" + card.dataset.id;
+    });
+  });
+  scope.querySelectorAll(".fav-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const id = parseInt(btn.dataset.fav, 10);
+      if (FAVS.has(id)) FAVS.delete(id); else FAVS.add(id);
+      favsSave();
+      const on = FAVS.has(id);
+      btn.classList.toggle("active", on);
+      btn.querySelector("svg").setAttribute("fill", on ? "#E5484D" : "rgba(255,255,255,.9)");
+      updateFavChip();
+    });
+  });
 }
 
 function renderFeatured() {
@@ -207,35 +245,248 @@ function updateLoadMore(grid, total) {
 /* ---------- Filters (properties page) ---------- */
 function initFilters() {
   const typeSel = document.getElementById("f-type");
-  const locSel = document.getElementById("f-location");
   if (typeSel) {
     typeSel.innerHTML = `<option value="all">${t("f_any")}</option>` +
       [...new Set(PROPERTIES.map(p => p.type))].map(ty => `<option value="${ty}">${t("type_" + ty)}</option>`).join("");
   }
-  if (locSel) {
-    const locs = [...new Set(PROPERTIES.map(p => L(p.location)))].sort((a, b) => a.localeCompare(b));
-    locSel.innerHTML = `<option value="all">${t("f_anywhere")}</option>` +
-      locs.map(l => `<option value="${l}">${l}</option>`).join("");
+
+  /* ---- location autocomplete (states / cities / districts / ZIP) ---- */
+  const locq = document.getElementById("f-locq");
+  const drop = document.getElementById("loc-drop");
+  const radiusSel = document.getElementById("f-radius");
+  window._locSel = null;
+
+  const norm = x => x.toLowerCase().replace(/ä/g,"a").replace(/ö/g,"o").replace(/ü/g,"u").replace(/ß/g,"ss");
+  function haversine(lat1, lng1, lat2, lng2) {
+    const R = 6371, r = Math.PI / 180;
+    const dLat = (lat2 - lat1) * r, dLng = (lng2 - lng1) * r;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin(dLng/2)**2;
+    return 2 * R * Math.asin(Math.sqrt(a));
+  }
+  window._haversine = haversine;
+
+  function suggestions(qRaw) {
+    const q = norm(qRaw.trim());
+    if (q.length < 2) return [];
+    const out = [];
+    for (const st of STATES) {
+      if (norm(st.en).includes(q) || norm(st.de).includes(q))
+        out.push({ kind: "state", label: st });
+    }
+    for (const c of CITIES) {
+      if (norm(c.en).includes(q) || norm(c.de).includes(q))
+        out.push({ kind: "city", label: c, sub: c.state });
+      else if (q.length >= 3 && c.zip.slice(0, q.length) === q)
+        out.push({ kind: "zip", label: c, sub: c.zip + " — " + c.de, zip: c.zip });
+    }
+    for (const d of DISTRICTS) {
+      if (norm(d.en).includes(q) || norm(d.de).includes(q))
+        out.push({ kind: "district", label: d, sub: d.city });
+    }
+    return out.slice(0, 9);
   }
 
+  function pickLoc(sug) {
+    const kind = sug.kind;
+    if (kind === "state") {
+      window._locSel = { kind, name: sug.label.en, nameDe: sug.label.de, lat: sug.label.lat, lng: sug.label.lng };
+      locq.value = sug.label[L({en:"en",de:"de"})] || sug.label.en;
+    } else if (kind === "city") {
+      window._locSel = { kind, name: sug.label.en, nameDe: sug.label.de, lat: sug.label.lat, lng: sug.label.lng, zip: sug.label.zip };
+      locq.value = sug.label[L({en:"en",de:"de"})] || sug.label.en;
+    } else if (kind === "zip") {
+      const c = sug.label;
+      window._locSel = { kind: "city", name: c.en, nameDe: c.de, lat: c.lat, lng: c.lng, zip: sug.zip };
+      locq.value = sug.zip + " " + (L({en:"en",de:"de"}) === "de" ? c.de : c.en);
+    } else {
+      window._locSel = { kind, name: sug.label.en, nameDe: sug.label.de, lat: sug.label.lat, lng: sug.label.lng };
+      locq.value = sug.label[L({en:"en",de:"de"})] || sug.label.en;
+    }
+    drop.hidden = true;
+    if (radiusSel) radiusSel.hidden = false;
+    apply();
+  }
+  window._pickLoc = pickLoc;
+
+  if (locq) {
+    locq.addEventListener("input", () => {
+      window._locSel = null;
+      if (radiusSel) { radiusSel.hidden = true; radiusSel.value = "0"; }
+      const sugg = suggestions(locq.value);
+      if (!sugg.length) { drop.hidden = true; return; }
+      drop.innerHTML = sugg.map((g, i) =>
+        `<div class="loc-item" data-i="${i}">
+           <span class="loc-name">${g.kind === "zip" ? g.sub.split(" — ")[0] : (L({en:"en",de:"de"}) === "de" ? g.label.de : g.label.en)}${g.kind === "zip" ? " · " + (L({en:"en",de:"de"}) === "de" ? g.label.de : g.label.en) : ""}</span>
+           <span class="loc-sub">${g.kind === "state" ? t("loc_states") : g.kind === "city" ? (t("loc_cities") + " · " + g.sub) : g.kind === "zip" ? t("loc_zips") : (t("loc_districts") + " · " + g.sub)}</span>
+         </div>`).join("");
+      drop.hidden = false;
+      [...drop.children].forEach(el => el.addEventListener("click", () => pickLoc(sugg[parseInt(el.dataset.i, 10)])));
+    });
+    locq.addEventListener("keydown", e => {
+      if (e.key === "Enter" && !drop.hidden) {
+        e.preventDefault();
+        const first = drop.querySelector(".loc-item");
+        if (first) pickLoc(suggestions(locq.value)[parseInt(first.dataset.i, 10)]);
+      }
+    });
+    document.addEventListener("click", e => { if (!e.target.closest(".loc-wrap")) drop.hidden = true; });
+  }
+
+  /* ---- advanced filters toggle ---- */
+  const advBtn = document.getElementById("adv-toggle");
+  const advPanel = document.getElementById("adv-panel");
+  if (advBtn) advBtn.addEventListener("click", () => {
+    advPanel.hidden = !advPanel.hidden;
+    advBtn.textContent = advPanel.hidden ? t("adv_filters") : t("adv_hide");
+  });
+
+  /* ---- energy chips ---- */
+  document.querySelectorAll("#f-energy .ec-chip").forEach(ch => {
+    ch.addEventListener("click", () => ch.classList.toggle("on"));
+  });
+
+  /* ---- quick chips ---- */
+  document.querySelectorAll(".qchip[data-qfeat]").forEach(ch => {
+    ch.addEventListener("click", () => {
+      ch.classList.toggle("on");
+      const box = document.querySelector(`#f-feats input[value="${ch.dataset.qfeat}"]`);
+      if (box) box.checked = ch.classList.contains("on");
+      window._shown = 12;
+      apply();
+    });
+  });
+  const chip3 = document.getElementById("chip-3plus");
+  if (chip3) chip3.addEventListener("click", () => {
+    chip3.classList.toggle("on");
+    const rm = document.getElementById("f-rmin");
+    if (rm) rm.value = chip3.classList.contains("on") ? "3" : "0";
+    window._shown = 12;
+    apply();
+  });
+  updateFavChip();
+  const chipF = document.getElementById("chip-favs");
+  if (chipF) chipF.addEventListener("click", () => {
+    chipF.classList.toggle("on");
+    window._shown = 12;
+    apply();
+  });
+
+  /* ---- AI-style natural language search ---- */
+  const aiInput = document.getElementById("ai-search");
+  const aiBtn = document.getElementById("ai-go");
+  function aiParse() {
+    const raw = (aiInput.value || "").trim();
+    if (!raw) return null;
+    const low = raw.toLowerCase();
+    const applied = [];
+    const num = (re) => { const m = raw.match(re); return m ? parseInt(m[1].replace(/\./g,""), 10) : null; };
+    // rooms
+    const rmin = num(/(\d+)\s*(?:zimmer|rooms|zi\b)/) || num(/(\d+)\s*(?:bed|schlaf)/);
+    if (rmin && document.getElementById("f-rmin")) { document.getElementById("f-rmin").value = String(Math.min(rmin, 5)); applied.push(rmin + "+ " + (L({en:"en",de:"de"}) === "de" ? "Zimmer" : "rooms")); }
+    // price cap
+    const cap = num(/(?:under|unter|bis|max(?:\.|imum)?|up to)\s*([\d.,]+)\s*(?:€|eur|euro)?/);
+    if (cap && document.getElementById("f-max")) { document.getElementById("f-max").value = cap; applied.push("≤ " + cap.toLocaleString("en-US") + " €"); }
+    const floor = num(/(?:over|über|ab|min(?:\.|imum)?|from)\s*([\d.,]+)\s*(?:€|eur|euro)?/);
+    if (floor && document.getElementById("f-min")) { document.getElementById("f-min").value = floor; applied.push("≥ " + floor.toLocaleString("en-US") + " €"); }
+    // area
+    const m2 = num(/(\d+)\s*m(?:²|2)/);
+    if (m2 && document.getElementById("f-amin")) { document.getElementById("f-amin").value = m2; applied.push(m2 + " m²"); }
+    // features
+    [["balcony", /balkon|balcony|terrasse|terrace|loggia/],
+     ["garden", /garten|garden/],
+     ["elevator", /aufzug|elevator|lift/],
+     ["kitchen", /einbauküche|fitted kitchen|küche|kitchen/],
+     ["garage", /garage|stellplatz|parking|carport/]].forEach(([f, re]) => {
+      if (re.test(low)) {
+        const box = document.querySelector(`#f-feats input[value="${f}"]`);
+        const chip = document.querySelector(`.qchip[data-qfeat="${f}"]`);
+        if (box) box.checked = true;
+        if (chip) chip.classList.add("on");
+        applied.push(t("feat_" + f));
+      }
+    });
+    // buy/rent
+    if (/\bmiete|rent|mieten|rented\b/.test(low) && document.getElementById("f-status")) { document.getElementById("f-status").value = "rent"; applied.push(t("f_forrent")); }
+    if (/\bkauf|buy|kaufen\b/.test(low) && document.getElementById("f-status")) { document.getElementById("f-status").value = "sale"; applied.push(t("f_forsale")); }
+    // place: longest matching city/state/district
+    let bestPlace = null, bestLen = 0;
+    const lown = norm(raw);
+    for (const c of CITIES) for (const nm of [c.en, c.de]) {
+      if (norm(nm).length > bestLen && lown.includes(norm(nm))) { bestPlace = { kind: "city", label: c }; bestLen = nm.length; }
+    }
+    for (const st of STATES) for (const nm of [st.en, st.de]) {
+      if (norm(nm).length > bestLen && lown.includes(norm(nm))) { bestPlace = { kind: "state", label: st }; bestLen = nm.length; }
+    }
+    for (const d of DISTRICTS) for (const nm of [d.en, d.de]) {
+      if (norm(nm).length > bestLen && lown.includes(norm(nm))) { bestPlace = { kind: "district", label: d }; bestLen = nm.length; }
+    }
+    if (bestPlace) { pickLoc(bestPlace); applied.push(locq.value); }
+    window._shown = 12;
+    apply();
+    const info = document.getElementById("ai-applied");
+    if (info) {
+      info.hidden = !applied.length;
+      info.innerHTML = applied.length ? t("ai_applied") + ": " + applied.map(a => `<span class="ai-tag">${a}</span>`).join(" ") : "";
+    }
+    if (advPanel && applied.some(a => a.includes("m²") || a.includes("Zimmer") || a.includes("rooms"))) advPanel.hidden = false;
+  }
+  if (aiBtn) aiBtn.addEventListener("click", aiParse);
+  if (aiInput) aiInput.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); aiParse(); } });
+
+  /* ---- main apply ---- */
   const apply = () => {
     const q = (document.getElementById("f-search")?.value || "").toLowerCase().trim();
     const status = document.getElementById("f-status")?.value || "all";
     const type = document.getElementById("f-type")?.value || "all";
-    const loc = document.getElementById("f-location")?.value || "all";
     const min = parseInt(document.getElementById("f-min")?.value, 10) || 0;
     const max = parseInt(document.getElementById("f-max")?.value, 10) || Infinity;
     const beds = parseInt(document.getElementById("f-beds")?.value, 10) || 0;
     const sort = document.getElementById("f-sort")?.value || "default";
+    const amin = parseInt(document.getElementById("f-amin")?.value, 10) || 0;
+    const amax = parseInt(document.getElementById("f-amax")?.value, 10) || Infinity;
+    const rmin = parseInt(document.getElementById("f-rmin")?.value, 10) || 0;
+    const rmax = parseInt(document.getElementById("f-rmax")?.value, 10) || 99;
+    const yearMin = parseInt(document.getElementById("f-year")?.value, 10) || 0;
+    const eSel = [...document.querySelectorAll("#f-energy .ec-chip.on")].map(c => c.textContent.trim());
+    const feats = [...document.querySelectorAll("#f-feats input:checked")].map(i => i.value);
+    const favsOnly = document.getElementById("chip-favs")?.classList.contains("on") || false;
+    const loc = window._locSel;
+    const radius = radiusSel && !radiusSel.hidden ? (parseFloat(radiusSel.value) || 0) : 0;
 
-    let items = PROPERTIES.filter(p =>
-      (status === "all" || p.status === status) &&
-      (type === "all" || p.type === type) &&
-      (loc === "all" || L(p.location) === loc) &&
-      p.price >= min && p.price <= max &&
-      p.beds >= beds &&
-      (!q || (L(p.title) + " " + L(p.location) + " " + t("type_" + p.type) + " " + L(p.description)).toLowerCase().includes(q))
-    );
+    let items = PROPERTIES.filter(p => {
+      if (status !== "all" && p.status !== status) return false;
+      if (type !== "all" && p.type !== type) return false;
+      if (p.price < min || p.price > max) return false;
+      if (p.beds < beds) return false;
+      if (p.sqm < amin || p.sqm > amax) return false;
+      if (p.beds + 1 < rmin || (rmax < 99 && p.beds + 1 > rmax)) return false;
+      if (yearMin && p.year < yearMin) return false;
+      if (eSel.length && !eSel.includes(p.energyClass)) return false;
+      for (const f of feats) if (!p.flags || !p.flags[f]) return false;
+      if (favsOnly && !FAVS.has(p.id)) return false;
+      if (loc) {
+        if (loc.kind === "state" && p.state.en !== loc.name) return false;
+        if (loc.kind === "city") {
+          const sameCity = p.city.en === loc.name || p.city.de === loc.nameDe;
+          if (!sameCity) {
+            if (radius > 0 && window._haversine(p.lat, p.lng, loc.lat, loc.lng) > radius) return false;
+            if (radius === 0) return false;
+          }
+        }
+        if (loc.kind === "district") {
+          const sameDistrict = (p.district.en === loc.name) || (p.city.en === loc.name && !p.district.en);
+          if (!sameDistrict) {
+            if (radius > 0 && window._haversine(p.lat, p.lng, loc.lat, loc.lng) > radius) return false;
+            if (radius === 0) return false;
+          }
+        }
+      }
+      if (q) {
+        const hay = (L(p.title) + " " + L(p.location) + " " + t("type_" + p.type) + " " + L(p.description) + " " + L(p.state) + " " + p.address).toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
 
     if (sort === "price-asc") items.sort((a, b) => a.price - b.price);
     if (sort === "price-desc") items.sort((a, b) => b.price - a.price);
@@ -243,13 +494,32 @@ function initFilters() {
 
     window._filtered = items;
     drawListings();
-  };
 
-  document.querySelectorAll(".filters input, .filters select").forEach(el => el.addEventListener("input", () => {
+    /* location-aware empty state */
+    const grid = document.getElementById("listings-grid");
+    if (!items.length && loc && grid) {
+      grid.innerHTML = `<div class="empty-state loc-empty">
+        <h3>${t("loc_none_here_h")} — ${locq.value}</h3>
+        <p>${t("loc_none_here_p", { loc: locq.value })}</p>
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+          <a class="btn btn-gold" target="_blank" rel="noopener" href="${tgLink(t("loc_none_here_p", { loc: locq.value }))}">${t("loc_notify")} (Telegram)</a>
+          <button class="btn btn-outline" onclick="clearFilters()">${t("empty_clear")}</button>
+        </div>
+      </div>`;
+      removeLoadMore(grid);
+    }
+  };
+  window._applyFilters = apply;
+
+  document.querySelectorAll(".filters input, .filters select, #adv-panel input, #adv-panel select").forEach(el => el.addEventListener("input", () => {
     window._shown = 12;
     apply();
   }));
+  if (radiusSel) radiusSel.addEventListener("change", () => { window._shown = 12; apply(); });
   document.getElementById("filter-clear")?.addEventListener("click", clearFilters);
+
+  /* ---- smart empty state for keyword search ---- */
+  const origDraw = drawListings;
 
   // hero search on index page
   const heroForm = document.getElementById("hero-search");
@@ -259,14 +529,20 @@ function initFilters() {
       e.preventDefault();
       const q = document.getElementById("hero-q").value;
       const status = document.getElementById("hero-status").value;
-      const url = "properties.html?q=" + encodeURIComponent(q) + "&status=" + encodeURIComponent(status);
+      const url = "properties.html?ai=" + encodeURIComponent(q) + "&status=" + encodeURIComponent(status);
       window.location.href = url;
     });
   }
 
-  // read query params (from hero search)
+  /* AI search deep link: properties.html?ai=... */
   const params = new URLSearchParams(window.location.search);
-  if ((params.has("q") || params.has("status")) && !window._qApplied) {
+  if (params.has("ai") && aiInput && !window._qApplied) {
+    window._qApplied = true;
+    aiInput.value = params.get("ai");
+    const stParam = params.get("status");
+    if (stParam && stParam !== "all") document.getElementById("f-status").value = stParam;
+    setTimeout(aiParse, 50);
+  } else if ((params.has("q") || params.has("status")) && !window._qApplied) {
     window._qApplied = true;
     const q = params.get("q") || "";
     const s = params.get("status") || "all";
@@ -275,110 +551,31 @@ function initFilters() {
     if (search && q) search.value = q;
     if (status && s !== "all") status.value = s;
     apply();
+  } else {
+    apply();
   }
 }
 
 function clearFilters() {
   window._shown = 12;
-  document.querySelectorAll(".filters input").forEach(el => { el.value = ""; });
-  document.querySelectorAll(".filters select").forEach(el => { el.value = "all"; });
+  document.querySelectorAll(".filters input, #adv-panel input").forEach(el => { el.value = ""; });
+  document.querySelectorAll(".filters select, #adv-panel select").forEach(el => { el.value = el.querySelector("option")?.value || "all"; });
   const sort = document.getElementById("f-sort"); if (sort) sort.value = "default";
+  document.querySelectorAll("#f-feats input").forEach(i => i.checked = false);
+  document.querySelectorAll("#f-energy .ec-chip").forEach(c => c.classList.remove("on"));
+  document.querySelectorAll(".qchip").forEach(c => c.classList.remove("on"));
+  const locq = document.getElementById("f-locq");
+  if (locq) locq.value = "";
+  window._locSel = null;
+  const radiusSel = document.getElementById("f-radius");
+  if (radiusSel) { radiusSel.hidden = true; radiusSel.value = "0"; }
+  const aiIn = document.getElementById("ai-search");
+  if (aiIn) aiIn.value = "";
+  const info = document.getElementById("ai-applied");
+  if (info) info.hidden = true;
   window._filtered = PROPERTIES.slice();
   drawListings();
 }
-
-function bindCards(scope) {
-  scope.querySelectorAll(".property-card").forEach(card => {
-    card.addEventListener("click", () => openModal(parseInt(card.dataset.id, 10)));
-  });
-}
-
-/* ---------- Property detail modal ---------- */
-function initModal() {
-  const modal = document.getElementById("property-modal");
-  if (!modal) return;
-  const close = modal.querySelector(".modal-close");
-  close.addEventListener("click", closeModal);
-  modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-
-  modal.querySelector(".gal-prev").addEventListener("click", () => galStep(-1));
-  modal.querySelector(".gal-next").addEventListener("click", () => galStep(1));
-}
-
-let galIndex = 0, galImages = [];
-
-function openModal(id) {
-  const p = PROPERTIES.find(x => x.id === id);
-  if (!p) return;
-  const modal = document.getElementById("property-modal");
-
-  modal.querySelector(".m-status").textContent = p.status === "sale" ? t("for_sale") : t("for_rent");
-  modal.querySelector(".m-status").className = "m-status " + p.status;
-  modal.querySelector(".m-title").textContent = L(p.title);
-  modal.querySelector(".m-price").textContent = formatEuro(p.price) + (p.priceNote ? " " + t(p.priceNote) : "");
-  modal.querySelector(".m-location").textContent = L(p.location);
-  modal.querySelector(".m-desc").textContent = L(p.description);
-  modal.querySelector(".m-specs").innerHTML = `
-    <div><strong>${p.beds}</strong><span>${t("m_beds")}</span></div>
-    <div><strong>${p.baths}</strong><span>${t("m_baths")}</span></div>
-    <div><strong>${p.sqm.toLocaleString("en-US")}</strong><span>${t("m_sqm")}</span></div>
-    <div><strong>${t("type_" + p.type)}</strong><span>${t("m_type")}</span></div>`;
-
-  modal.querySelector(".m-features").innerHTML = L(p.features).map(f => `<li>${f}</li>`).join("");
-
-  const waMsg = t("m_msg", {
-    brand: CONFIG.brand,
-    title: L(p.title),
-    price: formatEuro(p.price) + (p.priceNote ? " " + t(p.priceNote) : ""),
-    location: L(p.location)
-  });
-  modal.querySelector(".m-tg").href = tgLink(waMsg);
-  modal.querySelector(".m-tg").textContent = t("m_viewing");
-  modal.querySelector(".m-call").textContent = t("m_call");
-
-  galImages = p.gallery && p.gallery.length ? p.gallery : [p.image];
-  galIndex = 0;
-  drawGallery();
-  drawThumbs();
-
-  modal.classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-
-function closeModal() {
-  const modal = document.getElementById("property-modal");
-  if (modal) { modal.classList.remove("open"); document.body.style.overflow = ""; }
-}
-
-function drawGallery() {
-  const modal = document.getElementById("property-modal");
-  const img = modal.querySelector(".gal-main img");
-  img.src = galImages[galIndex];
-  modal.querySelector(".gal-count").textContent = (galIndex + 1) + " / " + galImages.length;
-}
-
-function drawThumbs() {
-  const thumbs = document.getElementById("gal-thumbs");
-  if (!thumbs) return;
-  thumbs.innerHTML = galImages.map((src, i) =>
-    `<img src="${src}" class="${i === galIndex ? "active" : ""}" data-i="${i}" alt="" loading="lazy">`
-  ).join("");
-  thumbs.querySelectorAll("img").forEach(t2 => t2.addEventListener("click", () => { galIndex = parseInt(t2.dataset.i, 10); drawGallery(); drawThumbs(); }));
-}
-
-function galStep(d) {
-  galIndex = (galIndex + d + galImages.length) % galImages.length;
-  drawGallery();
-  drawThumbs();
-}
-
-/* ---------- Team ---------- */
-const AGENTS = [
-  { name: "Stefan Vogel", role: { en: "Principal Consultant", de: "Geschäftsführer" }, photo: "assets/img/team/agent1.jpg", wa: { en: "Hello, I'd like to speak with Stefan about a property.", de: "Hallo, ich möchte mit Stefan über eine Immobilie sprechen." } },
-  { name: "Annika Brandt", role: { en: "Head of Residential Sales", de: "Leiterin Wohnungsbau-Verkauf" }, photo: "assets/img/team/agent2.jpg", wa: { en: "Hello, I'd like to speak with Annika about buying a home.", de: "Hallo, ich möchte mit Annika über einen Immobilienkauf sprechen." } },
-  { name: "Lukas Weber", role: { en: "Lettings & Property Manager", de: "Mietverwaltung & Objektbetreuung" }, photo: "assets/img/team/agent3.jpg", wa: { en: "Hello, I'd like to speak with Lukas about renting a property.", de: "Hallo, ich möchte mit Lukas über eine Mietimmobilie sprechen." } }
-];
 
 function renderAgents() {
   const wrap = document.getElementById("agent-cards");
